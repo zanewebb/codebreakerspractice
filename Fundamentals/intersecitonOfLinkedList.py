@@ -35,9 +35,9 @@ class Solution:
         
         while intersectNode is None:
             if curA is None:
-                curA = headA
+                curA = headB
             if curB is None:
-                curB = headB
+                curB = headA
                 
             #print("checking A: "+str(curA.val) + " and  B: "+ str(curB.val))
             if curA == curB:
