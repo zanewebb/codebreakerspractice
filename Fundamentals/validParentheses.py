@@ -2,7 +2,7 @@
  def isValid(self, s: str) -> bool:
         if len(s) == 0:
             return True
-        opensides = [];
+        opensides = []
         
         for i in range(0,len(s)):
             if s[i] in ["[", "{", "("]:
@@ -28,3 +28,33 @@ def compareBrace(a:str, b:str):
         return True
     else:
         return False
+
+
+
+# second completion solution:
+class Solution:
+    def isValid(self, s: str) -> bool:
+        if len(s) == 0:
+            return True
+        
+        opens = []
+        
+        for i in range(0,len(s)):
+            if s[i] in ["{", "[", "("]:
+                opens.insert(0, s[i])
+            if s[i] in ["}", "]", ")"]:
+                if len(opens) == 0:
+                    return False
+                
+                opener = opens.pop(0)
+                if opener == "{" and s[i] != "}":
+                    return False
+                if opener == "[" and s[i] != "]":
+                    return False
+                if opener == "(" and s[i] != ")":
+                    return False
+                
+        if len(opens) > 0:
+            return False
+        
+        return True

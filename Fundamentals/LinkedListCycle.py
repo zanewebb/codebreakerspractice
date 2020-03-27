@@ -44,3 +44,22 @@ def hasCycle(self, head: ListNode) -> bool:
             fast = fast.next
         
         return False
+
+
+#second time around
+
+class Solution:
+    def hasCycle(self, head: ListNode) -> bool:
+        if head is None or head.next is None:
+            return False
+        
+        slow = fast = head
+        pos = 0
+        while fast is not None and slow is not None:
+            if fast == slow and pos != 0:
+                return True
+            slow = slow.next
+            fast = fast.next.next if fast.next else None
+            pos += 1
+        
+        return False
