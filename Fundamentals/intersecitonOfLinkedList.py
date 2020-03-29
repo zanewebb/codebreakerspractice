@@ -48,6 +48,37 @@ class Solution:
 
 
 
+#Second time
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        if headA is None or headB is None:
+            return None
+        
+        a = headA
+        b = headB
+        
+        while a.next:
+            a = a.next
+        while b.next:
+            b = b.next
+        
+        if a != b:
+            return None
+        
+        a = headA
+        b = headB
+        while True:
+            if not a:
+                a = headB
+            if not b: 
+                b = headA
+            if a == b:
+                return a
+            a = a.next
+            b = b.next
+        
+
 # 4,1,8,4,5,4,1,8,4,5,4,1,8,4,5,4,1,8,4,5,4,1,8,4,5,4,1,8|,4,5,4,1,8,4,5,4,1,8,4,5,4,1,8,4,5,4,1,8,4,5
 # 5,0,1,8,4,5,5,0,1,8,4,5,5,0,1,8,4,5,5,0,1,8,4,5,5,0,1,8|,4,5,5,0,1,8,4,5,5,0,1,8,4,5,5,0,1,8,4,5,
 #
