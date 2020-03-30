@@ -41,6 +41,57 @@ class Solution:
 
 
 
+# 2nd time aroun, coded properly this time
+
+# class ListNode:
+#     def __init__(self, val):
+#         self.val = val
+#         self.next = None
+class Solution:
+    def isPalindrome(self, head: ListNode) -> bool:
+        if not head:
+            return True
+        
+        # iterate at half and double speed
+        slow = head
+        fast = head.next
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+            
+        # when fast hits the end, slow.next must bet the mid
+        mid = slow.next
+        slow.next = None #break the pointer
+        
+        # reverse the middle - end of the linkedlist
+        endreversed = reverse(mid)
+        
+        # iterate from beginning and the middle(reversed), checking that the values match
+        cur = endreversed
+        slow = head
+        while slow and cur:
+            if slow.val != cur.val:
+                return False
+            slow = slow.next
+            cur = cur.next
+        return True
+        
+def reverse(head: ListNode) -> bool:
+    
+    prev = None
+    cur = head
+    temp = None
+    
+    while cur:
+        temp = cur.next
+        cur.next = prev
+        prev = cur
+        cur = temp
+    return prev
+
+
+
+
 
 #====================================================
 
