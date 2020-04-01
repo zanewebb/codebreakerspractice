@@ -1,3 +1,32 @@
+# second time
+
+def evalRPN(self, tokens: List[str]) -> int:
+        stack = []
+        
+        for i in range(0, len(tokens)):
+            operators = "+-*/"
+            
+            if tokens[i] not in operators:
+                stack.append(int(tokens[i]))
+            
+            if tokens[i] in operators:
+                num2 = stack.pop()
+                num1 = stack.pop()
+                if tokens[i] == "+":
+                    stack.append(num2+num1)
+                if tokens[i] == "-":
+                    stack.append(num1-num2)
+                if tokens[i] == "*":
+                    stack.append(num2*num1)
+                if tokens[i] == "/":
+                    stack.append(int(num1/num2))
+        return stack.pop()
+
+
+
+
+
+
 def evalRPN(self, tokens: List[str]) -> int:
         # given input if valid should always have an operator at the end of the array
         # at a minimum, a valid expression should have number, number, expression as its least

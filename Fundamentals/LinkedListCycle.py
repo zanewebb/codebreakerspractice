@@ -1,6 +1,25 @@
 #Linked List Cycle
 
 
+
+
+# third time, better solution improved
+
+def hasCycle(self, head: ListNode) -> bool:
+        if head is None or head.next is None:
+            return False
+        
+        fast = slow = head
+        while fast and slow and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            
+            if fast == slow:
+                return True
+        
+        return False
+
+
 # garbage solution
 # O(N) run time
 # O(N) space

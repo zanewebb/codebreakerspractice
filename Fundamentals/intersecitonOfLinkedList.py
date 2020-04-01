@@ -48,9 +48,42 @@ class Solution:
 
 
 
+
+# third time
+
+def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        if headA is None or headB is None:
+            return None
+        
+        curA = headA
+        curB = headB
+        while curA.next:
+            curA = curA.next
+        while curB.next:
+            curB = curB.next
+            
+        if curA != curB:
+            return None
+        
+        curA = headA
+        curB = headB
+        while curA != curB:
+            curB = curB.next
+            curA = curA.next
+            if not curA:
+                curA = headB
+            if not curB:
+                curB = headA
+            
+            
+            
+        return curA
+
+
 #Second time
 
 class Solution:
+   
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         if headA is None or headB is None:
             return None

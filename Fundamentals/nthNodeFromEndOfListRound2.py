@@ -1,4 +1,35 @@
 class Solution:
+
+   # second time, approved solution
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        if not head.next:
+            return None
+        
+        dummy = ListNode(-1)
+        dummy.next = head
+        
+        front = head
+        ind = 1
+        while ind < n:
+            front = front.next
+            ind += 1
+        
+        back = dummy
+        while front and front.next:
+            front = front.next
+            back = back.next
+       
+            
+        back.next = back.next.next
+        
+        return dummy.next
+
+
+
+
+
+
+   #
     def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
         if not head.next:
             return None
