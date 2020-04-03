@@ -5,40 +5,49 @@
 #         self.next = None
 
 class Solution:
+    
+    # 3rd time
+
     def isPalindrome(self, head: ListNode) -> bool:
-        # Create two index holders,one for left looking and one for right looking
-        # iterate across once to find the length
-        # using the length decide where to begin the left and right search
-        # iterate across 1/2N times to see if it's a palindrome
-        
-        left = right = head
-        count = -1
-        while right is not None:
-            count += 1
-            right = right.next
-        
-        if count == 0 or count == -1:
+        if not head or not head.next:
             return True
         
-        print(count)
+        slow = head
+        fast = head.next
         
-        leftTar = rightTar = 0
-        if len(count) % 2 != 0:
-            leftTar = int(count/2)
-            rightTar = int(count/2) + 1
-        else:
-            leftTar = rightTar = int(count/2)
-        
-        while leftTar > -1 and rightTar <= count:
-            while
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
             
+        mid = slow.next
+        slow.next = None
         
-        # two iterators, one that travels to the end, one that 
+        reversedList = self.reverse(mid)
         
-        # Iterate to the end, counting how many steps were taken
+        cur1 = head
+        cur2 = reversedList
+        while cur1 and cur2:
+            if cur1.val != cur2.val :
+                return False
+            cur1 = cur1.next
+            cur2 = cur2.next
         
-        # 
-
+        # if cur1 != cur2:
+        #     return False
+        
+        return True
+    
+    def reverse(self, head: ListNode) -> ListNode:
+        prev = temp = None
+        cur = head
+        
+        while cur:
+            temp = cur.next
+            cur.next = prev
+            prev = cur
+            cur = temp
+        
+        return prev
 
 
 # 2nd time aroun, coded properly this time
