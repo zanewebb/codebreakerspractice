@@ -1,3 +1,29 @@
+#4th time
+def isValid(self, s: str) -> bool:
+        if len(s) == 0:
+            return True
+        
+        stack = []
+        
+        for i in range(0, len(s)):
+            if s[i] in "({[":
+                stack.append(s[i])
+            
+            if s[i] in "]})":
+                if len(stack) == 0:
+                    return False
+                opener = stack.pop()
+                if opener == "{" and s[i] != "}":
+                    return False
+                if opener == "(" and s[i] != ")":
+                    return False
+                if opener == "[" and s[i] != "]":
+                    return False
+        
+        if len(stack) != 0:
+            return False
+        
+        return True
 
 
 # 3rd time

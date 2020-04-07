@@ -1,3 +1,48 @@
+
+# fourth time
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        if headA is None or headB is None:
+            return None
+        
+        if headA == headB:
+            return headA
+        
+        curA = headA
+        while curA.next:
+            curA = curA.next
+        
+        curB = headB
+        while curB.next:
+            curB = curB.next
+        
+        if curA != curB:
+            return None
+        
+        curA = headA
+        curB = headB
+        while curA != curB:
+            if not curA:
+                curA = headB
+            else:
+                curA = curA.next
+                
+            if not curB:
+                curB = headA
+            else:
+                curB = curB.next
+            
+        
+        return curA
+
+
+
+
+
+
+
+
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, x):
