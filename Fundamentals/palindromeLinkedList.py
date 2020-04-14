@@ -4,6 +4,51 @@
 #         self.val = x
 #         self.next = None
 
+# 4th time
+
+class Solution:
+    def isPalindrome(self, head: ListNode) -> bool:
+        if not head or not head.next:
+            return True
+        
+        # slow and fast iterator to find the midpoint
+        slow = head
+        fast = head.next
+        
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        
+        mid = slow.next
+        slow.next = None
+        
+        # reverse the midpoint
+        reversedHalf = self.reverseLinkedList(mid)
+               
+        
+        #compare beginning to middle and reversed middle to end to verify that they match
+        slow = head
+        while slow and reversedHalf:
+            if slow.val != reversedHalf.val:
+                return False
+            slow = slow.next
+            reversedHalf = reversedHalf.next
+        
+        return True
+        
+    def reverseLinkedList(self, head: ListNode) -> ListNode:
+        
+        prev = temp = None
+        cur = head
+        while cur:
+            temp = cur.next
+            cur.next = prev
+            prev = cur
+            cur = temp
+        
+        return prev
+
+
 class Solution:
     
     # 3rd time

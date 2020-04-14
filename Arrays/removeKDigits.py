@@ -1,3 +1,86 @@
+ 
+ 
+ # third time
+
+ def removeKdigits(self, num: str, k: int) -> str:
+        if len(num) == 0:
+            return "0"
+        
+        stack = []
+        
+        for i in range(len(num)):
+            # for each number, check that it is the smallest number that we can put first in our final number
+            while len(stack) > 0 and int(num[i]) < stack[-1] and k > 0:
+                # for each number that we discard during this check, decrement k
+                stack.pop()
+                k -= 1
+                
+            stack.append(int(num[i]))
+        
+        # if there are still numbers to remove, just remove them from the stack until k is 0
+        while k and len(stack) > 0:
+            stack.pop()
+            k -= 1
+        
+        # build the answer with leading zeros in mind
+        ans = ""
+        foundNum = False
+        while len(stack) > 0:
+            nextNum = stack.pop(0)
+            if nextNum != 0:
+                foundNum = True
+            if (foundNum and nextNum == 0) or nextNum != 0:
+                ans = ans + str(nextNum)
+        
+        # if the answer has no numbers, return a 0
+        if not ans:
+            return "0"
+        
+        return ans
+ 
+ 
+ 
+ 
+ 
+ # second time
+
+ def removeKdigits(self, num: str, k: int) -> str:
+        if len(num) == 0:
+            return "0"
+        
+        finalNumStack = []
+        
+        for i in num:
+                while len(finalNumStack) > 0 and finalNumStack[len(finalNumStack)-1] > int(i) and k > 0:
+                    finalNumStack.pop()
+                    k -= 1
+                    
+                finalNumStack.append(int(i))
+        
+        # Edge case check
+        while k > 0:
+            k -= 1
+            finalNumStack.pop()
+        
+        
+        ans = ""
+        foundNonZero = False
+        print(finalNumStack)
+        while len(finalNumStack) > 0:
+            ansNum = finalNumStack.pop(0)
+            if ansNum != 0:
+                foundNonZero = True
+            
+            if (foundNonZero and ansNum == 0) or ansNum != 0:
+                ans = ans + str(ansNum) 
+        
+        if not ans:
+            return "0"
+        return ans
+ 
+ 
+ # first time
+ 
  def removeKdigits(self, num: str, k: int) -> str:
         if len(num) == 0:
             return "0"
