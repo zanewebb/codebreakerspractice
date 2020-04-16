@@ -1,5 +1,26 @@
 # removeDuplicates.py
 
+# second time, schmancy solution
+
+def removeDuplicates(self, nums: List[int]) -> int:
+        if len(nums) == 0:
+            return 0
+        if len(nums) == 1:
+            return 1
+        
+        # pointer of the most recently updated index
+        i = 0
+        
+        # each time we encounter a unique value, assign that value to index i
+        for x in range(1,len(nums)):
+            if nums[x] != nums[i]:
+                nums[i+1] = nums[x]
+                i += 1
+        
+        # return the index + 1 as the length
+        return i +1
+
+
 #got it first try wow
 
 class Solution:

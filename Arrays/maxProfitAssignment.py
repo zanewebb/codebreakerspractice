@@ -2,6 +2,33 @@
 
 class Solution:
 
+
+   # second time, sloppy but complete
+   def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
+        # zip together  the difficulty and profit, theyre guaranteed to be same length
+        jobs = sorted(list(zip(difficulty, profit)))
+        print(jobs)
+        # iterate over the sorted workers with a var tracking the best profit job seen so far
+        # track the total profit as well
+        totalProfit = bestProfit = jobInd = 0
+        # print(sorted(worker))
+        for capability in sorted(worker):
+            # print("=============\nworker: ", capability)
+            # print("=============")
+            while jobInd <= len(jobs)-1 and jobs[jobInd][0] <= capability:
+                # print("jobInd: ",jobInd)
+                # print("- - - - - - -")
+                # print("job: ",jobs[jobInd])
+                if jobs[jobInd][1] > bestProfit:
+                    bestProfit = jobs[jobInd][1]
+                jobInd += 1
+            # for each worker, iterate up the jobs tuples until it has reached the end or the cap of their capabilities
+            # and then cash out that worker for the profit of the best job encountered
+            totalProfit += bestProfit
+        #     print("totalProfit",totalProfit)
+        # print("end jobInd: ",jobInd)
+        return totalProfit
+
    # Provided solution #1 
    def maxProfitAssignment(self, difficulty, profit, worker):
       jobs = zip(difficulty, profit)
