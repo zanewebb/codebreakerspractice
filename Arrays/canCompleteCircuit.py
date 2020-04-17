@@ -2,6 +2,46 @@
 
 class Solution:
 
+    #third time, almost clean execution, stumbled on (second) station setting condition
+
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:        
+        # if the total gas available is less than the total cost required, cant make it
+        if sum(gas) < sum(cost):
+            return -1
+        
+        # funny edge case from leetcode that i love thank you very much hehe funny
+        if len(gas) == 1:
+            return 0
+        
+        # track the station in question, and the current gas
+        station, curGas = -1, 0
+        
+        # zip the gas and costs of the station together, do not sort it
+        stations = list(zip(gas,cost))
+        
+        # iterate over the stations
+        for i,s in enumerate(stations):
+            # add the net gas of the current station
+            curGas += s[0] - s[1]
+            #print("curGas is: ", curGas)
+            
+            # if our current gas is less than 0
+            if curGas < 0:
+                # reset the station tracker
+                station = -1
+                # reset the current gas
+                curGas = 0
+            
+            # if the station tracker hasn't been set, set it to this station
+            if station == -1 and curGas > 0:
+                station = i
+            #print("station is: ", station)
+                
+        return station
+
+
+        
+
    # second time
    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:        
         # if the total gas available is less than the total cost required, cant make it

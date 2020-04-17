@@ -3,6 +3,33 @@
 class Solution:
 
 
+    # third time, dam
+    def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
+        # zip together  the difficulty and profit, theyre guaranteed to be same length
+        jobs = list(zip(difficulty, profit))
+        
+        # sort by difficulty (sort defaults to the first index of subdicts's in a list)
+        jobs.sort()
+        
+        # track the max profit seen, and the total profit
+        totalProfit = maxProfit = 0
+        
+        # iterate over workers
+        j = 0
+        for i, w in enumerate(sorted(worker)):
+            # while we havent overstepped the difficulty of the current worker iterate jobs (difficulty, profit)
+            while j < len(jobs) and jobs[j][0] <= w:
+                # update the max profit if the profit of the job is higher than the seen max
+                if jobs[j][1] > maxProfit:
+                    maxProfit = jobs[j][1]
+                j += 1
+            
+            # increment the total profit
+            totalProfit += maxProfit
+            
+
+        return totalProfit
+
    # second time, sloppy but complete
    def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
         # zip together  the difficulty and profit, theyre guaranteed to be same length

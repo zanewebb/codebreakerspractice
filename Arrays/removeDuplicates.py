@@ -1,5 +1,24 @@
 # removeDuplicates.py
 
+# third time, wavered for a second but got it
+
+def removeDuplicates(self, nums: List[int]) -> int:
+        if len(nums) == 0:
+            return 0
+        if len(nums) == 1:
+            return 1
+        
+        j = 0
+        for i in range(1,len(nums)):
+            # print("i: ", i)
+            # print("j: ", j)
+            if nums[i] != nums[j]:
+                j += 1
+                nums[j] = nums[i]
+            # print(nums)
+        
+        return j+1
+
 # second time, schmancy solution
 
 def removeDuplicates(self, nums: List[int]) -> int:

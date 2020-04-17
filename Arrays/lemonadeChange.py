@@ -2,6 +2,31 @@
 
 class Solution:
 
+# second go, ez
+# 98% speed percentile yea boi
+
+    def lemonadeChange(self, bills):
+        # establish cash register values (only the values usable for change)
+        fives = tens = 0
+        
+        for i in bills:
+            
+            if i == 5:
+                fives += 1
+            elif i == 10 and fives > 0:
+                fives -= 1
+                tens += 1
+            elif i == 20 and tens > 0 and fives > 0:
+                tens -= 1
+                fives -= 1
+            elif i == 20 and fives > 2:
+                fives -= 3
+            else:
+                return False
+        
+        return True
+
+
    # first try, super not optimal, 5% and 7% ouch
 
    #INDEX SEARCHES AND POPS KILLED IT TIME WISE

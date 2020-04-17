@@ -1,5 +1,20 @@
 #maxSubArray
+# third time
 
+def maxSubArray(self, nums: List[int]) -> int:
+        bestMax = -99999999999999
+        currentMax = 0
+        
+        for i in range(len(nums)):
+            currentMax = currentMax + nums[i]
+            
+            if currentMax > bestMax:
+                bestMax = currentMax
+            
+            if currentMax < 0:
+                currentMax = 0
+        
+        return bestMax
 
 #Second time:
 

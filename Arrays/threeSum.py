@@ -1,5 +1,47 @@
 # threeSum.py
 
+# second time, sloppy, needed help
+def threeSum(self, nums: List[int]) -> List[List[int]]:
+        # sort nums
+        nums = sorted(nums)
+        ans = {}
+        
+        # iterate over the nums
+        for i in range(len(nums)-2):
+            # if i is > 0, break
+            if nums[i] > 0:
+                break
+            
+            # two iterators, left(i) and right(len - 1)
+            left = i+1
+            right = len(nums) -1
+            
+            # while left is less than right
+            while left < right:
+                # if greater than 0, move right inwards
+                if nums[i] + nums[left] + nums[right] > 0:
+                    right -= 1
+                    
+                # if less than 0, move left inwards
+                elif nums[i] + nums[left] + nums[right] < 0:
+                    left += 1
+                
+                # store the sum if zero
+                else:
+                    if str(nums[i])+str(nums[left])+str(nums[right]) not in ans:
+                        ans[str(nums[i])+str(nums[left])+str(nums[right])] = [nums[i], nums[left], nums[right]]
+                        
+                    while left<right and nums[left] == nums[left+1]:
+                        left+=1
+                    while left<right and nums[right] == nums[right-1]:
+                        right-=1
+                    left+=1
+                    right-=1
+                        
+                
+        
+        return ans.values()
+
 # real solution
 def threeSum(self, nums):
 		res = []
