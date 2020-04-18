@@ -1,5 +1,35 @@
 # numSubArrayProductLessThanK.py
 
+# second time: solved it almost, for some reason using len(nums[l:r]) + 1 doesnt fly, but left - right + 1 does ?
+
+def numSubarrayProductLessThanK(self, nums, k):
+        if k <= 1:
+            return 0
+        
+        # track l and r of window, both at 0 intially
+        # windowProduct that starts at 1 and count of sub arrays
+        l, r, count, windowProduct = 0, 0, 0, 1
+        
+        # while r < len(nums)
+        while r < len(nums):
+            # windowProduct *= nums[r]
+            windowProduct *= nums[r]
+            
+            # while windowProduct is > k
+            while windowProduct >= k :
+                # divide window product by nums[l]
+                windowProduct /= nums[l]
+                
+                # increment l
+                l += 1
+            
+            count += r - l + 1
+                
+            # print(l, r, count, windowProduct)
+            # increment r
+            r += 1
+        
+        return count
 
 # accepted solution
 def numSubarrayProductLessThanK(self, nums, k):
