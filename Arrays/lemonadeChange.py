@@ -2,6 +2,24 @@
 
 class Solution:
 
+# third time, ez
+
+def lemonadeChange(self, bills: List[int]) -> bool:
+        fives = tens = 0
+        
+        for bill in bills:
+            if bill is 5:
+                fives += 1
+            elif bill is 10 and fives > 0:
+                fives, tens = fives - 1, tens + 1
+            elif bill is 20 and tens > 0 and fives > 0:
+                fives, tens = fives - 1, tens - 1
+            elif bill is 20 and fives > 2:
+                fives -= 3
+            else:
+                return False
+        return True
+
 # second go, ez
 # 98% speed percentile yea boi
 
