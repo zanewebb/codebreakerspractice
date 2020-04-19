@@ -1,5 +1,32 @@
 class Solution:
 
+   #second try, marginally better
+
+   def lengthOfLongestSubstring(self, s: str) -> int:
+        if len(s) == 1:
+            return 1
+        if not s:
+            return 0
+        
+        #space inefficient solution
+        
+        bestMax = 0
+        winChars = set()
+        l = r = 0
+        
+        while r < len(s):
+            if s[r] not in winChars:
+                winChars.add(s[r])
+            else:
+                while s[r] in winChars:
+                    winChars.discard(s[l])
+                    l += 1
+                winChars.add(s[r])
+            bestMax = max(bestMax, len(winChars))
+            
+            r += 1
+        return bestMax
+
    # first try, woohoo
     def lengthOfLongestSubstring(self, s: str) -> int:
         if len(s) == 1:

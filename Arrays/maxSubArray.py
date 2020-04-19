@@ -1,4 +1,28 @@
 #maxSubArray
+
+# super elegant solution
+for i in range(1,len(nums)):
+        nums[i] = max(nums[i], nums[i-1] + nums[i])
+return max(nums)
+
+
+# fourth time
+
+def maxSubArray(self, nums: List[int]) -> int:
+        # track best max and current max
+        bestMax = -9999999999
+        curMax = 0
+        # iterate over nums
+        for n in nums:
+            # add current num to current max
+            curMax += n
+            # if current max is bigger than best max, set it
+            bestMax = max(curMax, bestMax)
+            # if current max is less than 0, reset to 0
+            curMax = max(0, curMax)
+        # return best max
+        return bestMax
+
 # third time
 
 def maxSubArray(self, nums: List[int]) -> int:

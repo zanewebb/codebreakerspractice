@@ -1,4 +1,36 @@
- 
+# fifth time
+def removeKdigits(self, num: str, k: int) -> str:
+        if len(num) == 0:
+            return "0"
+        
+        stack = []
+        
+        for s in num:
+            while len(stack) > 0 and int(s) < stack[-1] and k > 0:
+                stack.pop()
+                k -= 1
+            
+            stack.append(int(s))
+        
+        # edge case for all duplicate nums
+        while len(stack) > 0 and k > 0:
+            stack.pop()
+            k -= 1
+        
+        # build the answer string
+        ans = ""
+        leadingZero = True
+        while len(stack) > 0:
+            popped = stack.pop(0)
+            
+            if popped != 0 or not leadingZero:
+                ans += str(popped)
+                leadingZero = False
+        
+        if not ans:
+            return "0"
+        else:
+            return ans 
  
 # fourth time
 
