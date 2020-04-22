@@ -1,5 +1,23 @@
 # removeDuplicates.py
 
+#fourth or fifth time
+def removeDuplicates(self, nums: List[int]) -> int:
+        if len(nums) <= 1:
+            return 0 if len(nums) == 0 else 1
+        
+        # track uniqueNumsLength and an iterator
+        uniqueLen = 1
+        # iterate over nums from 1, len(nums) -1 
+        for i in range(1,len(nums)):
+            # if the number in question is different than the one before it,
+            if nums[i] != nums[i-1]: 
+                # assign its value to the position at uniqueNumsLength
+                nums[uniqueLen] = nums[i]
+                # iterate uniqueNumsLength
+                uniqueLen += 1
+        
+        return uniqueLen
+
 # third time, wavered for a second but got it
 
 def removeDuplicates(self, nums: List[int]) -> int:

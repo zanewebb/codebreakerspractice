@@ -1,7 +1,28 @@
 # maxProfitAssignment
 
 class Solution:
-
+    #Fourth time
+    def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
+        # zip the difficulty and profit together to form jobs and convert that to a list
+        # sort jobs by difficulty
+        jobs = sorted(list(zip(difficulty,profit)))
+        
+        # track bestProfit and totalProfit
+        bestProfit = totalProfit = 0
+        jobInd = 0
+        
+        # iterate over workers
+        for w in sorted(worker):
+            # while the difficulty is <= worker's capability and within the list of jobs
+            while jobInd < len(jobs) and jobs[jobInd][0] <= w:                
+                # set bestProfit to the better of the two: bestProfit and current job's profit
+                bestProfit = max(bestProfit, jobs[jobInd][1])
+                jobInd += 1
+            
+            # cash out that worker for the best profit 
+            totalProfit += bestProfit
+            
+        return totalProfit
 
     # third time, dam
     def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
