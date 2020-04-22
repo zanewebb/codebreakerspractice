@@ -1,5 +1,91 @@
 # threeSum.py
 
+# fourth time
+
+# really need to remember that there needs to be two sub loops within the sub while loop that allow the sub loop (for moving l and r) to exit its condition.
+# if we dont have those loops to move the l and r until theyre different values, and move them one further, then it will keep trying to add the same answer infinitely
+
+def threeSum(self, nums: List[int]) -> List[List[int]]:
+        # sort nums
+        nums = sorted(nums)
+        # create set
+        ans = {}
+        
+        # iterate over nums until i > 0
+        i = 0
+        while i < len(nums)-2 and nums[i] <= 0:
+            # assign l and r to i + 1 and len(nums) - 1
+            l, r = i+1, len(nums)-1
+            
+            # while l < r
+            while l < r:
+                # move l and r towards each other depending on sum of three positions
+                # if the sum == 0 
+                if nums[i] + nums[l] + nums[r] == 0:
+                    # add the three values to the set
+                    ans[str(nums[i]) + str(nums[l]) + str(nums[r])] = [nums[i], nums[l], nums[r]]
+                    
+                    while l<r and nums[l]==nums[l+1]: #[6]
+                        l+=1
+                    while l<r and nums[r]==nums[r-1]: #[6]
+                        r-=1
+                    l+=1
+                    r-=1 
+                elif nums[i] + nums[l] + nums[r] > 0:
+                    r -= 1
+                else:
+                    l += 1
+            
+            i += 1
+                
+        # return answer set
+        return ans.values()
+
+# third time
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        # sort nums
+        nums = sorted(nums)
+        
+        # track answer set
+        ans = {}
+        
+        # iterate over the list until nums[i] > 0 or i >= len(nums)-2
+        i = 0
+        while i < len(nums) - 2 and nums[i] <= 0:
+            # track left and right
+            l, r = i+1, len(nums)-1
+            
+            # while l < r
+            while l < r:
+                # if the sum of values at i, l, and r is greater than 0
+                if nums[i] + nums[l] + nums[r] > 0:
+                    # decrement r
+                    r -= 1
+                
+                # elif the sum of values at i, l, and r is less than 0
+                elif nums[i] + nums[l] + nums[r] < 0:   
+                    # increment l
+                    l += 1
+                    
+                # else 
+                else:
+                    # add [i, l, r] to the set of answers
+                    ans[str(nums[i])+str(nums[l])+str(nums[r])] = [nums[i], nums[l], nums[r]]
+
+							# THIS IS THE CRITICAL PART 
+                    while l<r and nums[l]==nums[l+1]: #[6]
+                        l+=1
+                    while l<r and nums[r]==nums[r-1]: #[6]
+                        r-=1
+                    l+=1
+                    r-=1                    
+            # increment i
+            i += 1
+        
+        return ans.values()
+
+
 # second time, sloppy, needed help
 def threeSum(self, nums: List[int]) -> List[List[int]]:
         # sort nums

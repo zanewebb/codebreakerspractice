@@ -5,6 +5,35 @@
 #         self.next = None
 
 class Solution:
+
+
+    # ???th time, sloppy execution but got it
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        if not head.next:
+            return None
+        
+        dummy = ListNode(-1)
+        dummy.next = head
+        first = second = dummy
+        
+        firstInd = 0 
+        while firstInd < n:
+            first = first.next
+            firstInd += 1
+        
+        while first.next:
+            first = first.next
+            second = second.next
+        
+        if second == dummy:
+            return head.next
+        else:
+            second.next = second.next.next
+        
+        return head
+
+
+
     def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
         if head.next == None:
             return None

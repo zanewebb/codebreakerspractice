@@ -1,3 +1,36 @@
+
+# slick but less efficient solution
+def isValid(self, s: str) -> bool:
+    while "()" in s or "{}" in s or '[]' in s:
+                s = s.replace("()", "").replace('{}', "").replace('[]', "")
+            return s == ''
+
+#5th time
+def isValid(self, s: str) -> bool:
+        if len(s) == 0:
+            return True
+        
+        stack = []
+        
+        for i,c in enumerate(s):
+            if c in "([{":
+                stack.append(c)
+            elif c in "}])":
+                if len(stack) == 0:
+                    return False
+                popped = stack.pop()
+                if popped == "(" and c != ")":
+                    return False
+                elif popped == "{" and c != "}":
+                    return False
+                elif popped == "[" and c != "]":
+                    return False
+        
+        if len(stack) > 0:
+            return False
+        
+        return True
+
 #4th time
 def isValid(self, s: str) -> bool:
         if len(s) == 0:
