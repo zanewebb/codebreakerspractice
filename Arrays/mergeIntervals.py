@@ -3,6 +3,36 @@
 
 class Solution:
 
+
+   # second time, able to reproduce solution
+   def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        if len(intervals) <= 1:
+            return intervals
+        
+        # Sort based on the start of each interval
+        intervals = sorted(intervals, key=lambda x: x[0])
+        #print(intervals)
+        
+        # Iterate over sorted intervals
+        i = 1
+        while i < len(intervals):
+            #print(i)
+            # if the end of an interval is greater than the beginning of the next
+            if intervals[i-1][1] >= intervals[i][0]:    
+                # set the former's interval start to the min of the two starts
+                intervals[i-1][0] = min(intervals[i-1][0], intervals[i][0])
+                # and set the formers interval end to the max of the two ends
+                intervals[i-1][1] = max(intervals[i-1][1], intervals[i][1])
+                # pop the latter interval
+                intervals.pop(i)
+            
+            # else iterate i
+            else:
+                i += 1
+        return intervals
+    
+
+
    #same solution with a sort at the beginning
    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         if len(intervals) < 2:
@@ -30,7 +60,7 @@ class Solution:
          return intervals
 
 
-         
+
 
    #first try, dumb solution that hinges on it being sorted already
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:

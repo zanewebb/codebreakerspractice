@@ -1,5 +1,148 @@
 
 
+# fourth try, somehow hit an edge case with a key error after like 80 transactions
+
+# ["LRUCache","put","put","put","put","put","get","put","get","get","put","get","put","put","put","get","put","get","get","get","get","put","put","get","get","get","put","put","get","put","get","put","get","get","get","put","put","put","get","put","get","get","put","put","get","put","put","put","put","get","put","put","get","put","put","get","put","put","put","put","put","get","put","put","get","put","get","get","get","put","get","get","put","put","put","put","get","put","put","put","put","get","get","get","put","put","put","get","put","put","put","get","put","put","put","get","get","get","put","put","put","put","get","put","put","put","put","put","put","put"]
+# [[10],[10,13],[3,17],[6,11],[10,5],[9,10],[13],[2,19],[2],[3],[5,25],[8],[9,22],[5,5],[1,30],[11],[9,12],[7],[5],[8],[9],[4,30],[9,3],[9],[10],[10],[6,14],[3,1],[3],[10,11],[8],[2,14],[1],[5],[4],[11,4],[12,24],[5,18],[13],[7,23],[8],[12],[3,27],[2,12],[5],[2,9],[13,4],[8,18],[1,7],[6],[9,29],[8,21],[5],[6,30],[1,12],[10],[4,15],[7,22],[11,26],[8,17],[9,29],[5],[3,4],[11,30],[12],[4,29],[3],[9],[6],[3,4],[1],[10],[3,29],[10,28],[1,20],[11,13],[3],[3,12],[3,8],[10,9],[3,26],[8],[7],[5],[13,17],[2,27],[11,15],[12],[9,19],[2,15],[3,16],[1],[12,17],[9,1],[6,19],[4],[5],[5],[8,1],[11,7],[5,2],[9,28],[1],[2,2],[7,4],[4,22],[7,24],[9,26],[13,28],[11,26]]
+
+class Node:
+    def __init__(self, key: int, val: int):
+        self.key = key
+        self.val = val
+        self.next = None
+        self.prev = None
+        
+class Queue:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+    
+    def add(self, key: int, val: int) -> Node:
+        # create a new node with the key and value
+        newNode = Node(key, val)
+        # set that new node's next to the head
+        newNode.next = self.head
+        # if the head is not None, then set the head's prev to this new node
+        if self.head is not None:
+            self.head.prev = newNode
+        # set the head pointer to the new Node
+        self.head = newNode
+        # if there was nothing in the queue to begin with, make this node also the tail
+        if newNode.next is None:
+            self.tail = newNode
+            
+        return newNode
+        
+        
+    def remove(self, node: Node) -> int:
+        # using the given node
+        # if the node's next is not none, then set the next's prev to this node's prev
+        if node.next is not None:
+            node.next.prev = node.prev
+        # else set tail to this node's prev 
+        else:
+            self.tail = node.prev
+        # if the node's prev is not none, then set the prev's next to this node's next
+        if node.prev is not None:
+            node.prev.next = node.next
+        # else set head to this node's next
+        else:
+            self.head = node.next
+        
+        return node.val
+    
+    
+    def refresh(self, node: Node) -> int:
+        returnVal = self.remove(node)
+        self.add(node.key, node.val)        
+        return returnVal
+        
+        
+    def removeLU(self):
+        removedKey = self.tail.key
+        # if tail has a prev, set the tail's prev's next to be none and set tail to tail's prev
+        if self.tail.prev is not None:
+            self.tail.prev.next = None
+            self.tail = self.tail.prev
+        # else set head to None and tail to None
+        else:
+            self.tail = None
+            self.head = None
+        
+        return removedKey
+    
+    def printhead(self):
+        print("head: " ,self.head.key, self.head.val)
+    def printtail(self):
+        print("tail: " ,self.tail.key, self.tail.val)
+    def printfwd(self):
+        cur = self.head
+        ans = ""
+        while cur:
+            ans += "[" + str(cur.key) +" " +  str(cur.val) + "] -> "
+            cur = cur.next
+        print(ans)
+    def printbwd(self):
+        cur = self.tail
+        ans = ""
+        while cur:
+            ans += " <- [" + str(cur.key) +" " +  str(cur.val) + "]"
+            cur = cur.prev
+        print(ans)
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.values = {}
+        self.queue = Queue()
+        self.capacity = capacity
+        self.size = 0
+        
+    def get(self, key: int) -> int:
+        # if theres nothing in that position, return -1
+        if key not in self.values:
+            return -1
+        # move that node to the front of the queue and return it's value
+        # returnVal = self.queue.refresh(self.values[key])
+        # print("After get")
+        # print(self.values.keys())
+        # self.queue.printhead()
+        # self.queue.printtail()
+        # self.queue.printfwd()
+        # self.queue.printbwd()
+        # return returnVal
+        return self.queue.refresh(self.values[key])
+        
+
+    def put(self, key: int, val: int) -> None:
+        # Check if there is something at that value already
+        # if yes, remove that node, and decrement the size
+        if key in self.values:
+            self.queue.remove(self.values[key])
+            del self.values[key]
+            self.size -= 1
+            
+        # add a node and increment the size
+        self.values[key] = self.queue.add(key, val)
+        self.size += 1
+        # afterwards, check that the size is below the capacity
+        if self.size > self.capacity:
+            # if this is not the case, remove the value at the end of the queue
+            removedKey = self.queue.removeLU()
+            del self.values[removedKey]
+            self.size -= 1
+        # print("After put")
+        # print(self.values.keys())
+        # self.queue.printhead()
+        # self.queue.printtail()
+        # self.queue.printfwd()
+        # self.queue.printbwd()
+
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
+
 #third try, doesnt work
 
 class Node:

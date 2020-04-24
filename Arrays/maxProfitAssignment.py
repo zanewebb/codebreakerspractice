@@ -1,6 +1,7 @@
 # maxProfitAssignment
 
 class Solution:
+
     #Fourth time
     def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
         # zip the difficulty and profit together to form jobs and convert that to a list

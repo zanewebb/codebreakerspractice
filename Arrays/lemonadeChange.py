@@ -2,6 +2,27 @@
 
 class Solution:
 
+    #fourth time
+    def lemonadeChange(self, bills):
+        # establish cash register values (only the values usable for change)
+        fives = tens = 0
+        
+        for b in bills:
+            if b == 5:
+                fives += 1
+            elif b == 10 and fives > 0:
+                fives -= 1
+                tens += 1
+            elif b == 20 and tens > 0 and fives > 0:
+                tens -= 1
+                fives -= 1
+            elif b == 20 and fives > 2:
+                fives -= 3
+            else:
+                return False
+        
+        return True
+
 # third time, ez
 
 def lemonadeChange(self, bills: List[int]) -> bool:

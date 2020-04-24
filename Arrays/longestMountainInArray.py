@@ -6,6 +6,42 @@
 
 class Solution:
 
+
+# fourth solution
+
+def longestMountain(self, A: List[int]) -> int:
+        # if the length is less than 3, cant be a mountain at all
+        if len(A) < 3:
+            return 0
+        direction, bestSize, curSize = 0, 1, 1
+        
+        for i in range(1,len(A)):
+            if A[i] < A[i-1] and direction != 0:
+                direction = -1
+                curSize += 1
+                
+                bestSize = max(curSize, bestSize)
+                
+            
+            elif A[i] > A[i-1]:
+                if direction == -1:
+                    curSize = 1
+                
+                direction = 1
+                curSize += 1
+                
+            else:
+                direction = 0
+                curSize = 1
+        
+        if bestSize >=3:
+            return bestSize
+        
+        else: 
+            return 0
+
+
+
 # third time, marginally cleaner. 96% time, 100% space
 
 def longestMountain(self, A: List[int]) -> int:

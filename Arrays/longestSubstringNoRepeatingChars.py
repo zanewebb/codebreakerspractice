@@ -1,5 +1,35 @@
 class Solution:
 
+    # third time, makes sense, similar solution strat to sub arrays product less than k
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if len(s) == 1:
+            return 1
+        if not s:
+            return 0
+        
+        # set
+        charSet = set()
+        
+        # iterate with window, add to set, 
+        l = r = bestLen = 0
+        while r < len(s):
+            # when the next char is in the set already, 
+            
+            while s[r] in charSet:
+                # move the window closed removing chars until that's no longer the case
+                charSet.discard(s[l])
+                l += 1
+                
+            charSet.add(s[r])
+            
+            bestLen = max(bestLen, len(charSet))
+            
+            r += 1
+        
+        return bestLen
+
+        
+
    #second try, marginally better
 
    def lengthOfLongestSubstring(self, s: str) -> int:

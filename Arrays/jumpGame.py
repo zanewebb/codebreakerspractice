@@ -1,3 +1,18 @@
+# third tim
+def canJump(self, nums: List[int]) -> bool:
+        if len(nums) == 1:
+            return True
+        
+        curMax = bestMax = 0
+        
+        for i, n in enumerate(nums):       
+            if bestMax < i:
+                return False
+            bestMax = max(n + i, bestMax)
+        
+            
+        return True
+
 # second time
 
 def canJump(self, nums: List[int]) -> bool:
