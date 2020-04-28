@@ -1,5 +1,40 @@
 import random
 
+# third time, quicksort good
+
+def sortArray(self, nums: List[int]) -> List[int]:
+        random.shuffle(nums)
+        self.quickSort(nums, 0, len(nums)-1)
+        return nums
+    
+    def quickSort(self, nums, l, r):
+        # if l and r are equal, then theres nothing left to partition
+        if r <= l:
+            return
+        
+        # partition
+        partInd = self.partition(nums, l, r)
+        
+        # using partition value, split left and right and quicksort those
+        self.quickSort(nums, l, partInd-1)
+        self.quickSort(nums, partInd+1, r)
+    
+    def partition(self, nums, l, r) -> int:
+        swapInd = l
+        
+        for i in range(l+1,r+1):
+            # if the number is less than the value we're placing
+            if nums[i] < nums[l]:
+                # increment the swap index
+                swapInd += 1
+                # swap the values
+                nums[i], nums[swapInd] = nums[swapInd], nums[i]
+                
+        # swap the value we're placing
+        nums[l], nums[swapInd] = nums[swapInd], nums[l]
+        
+        return swapInd
+
 # second time
 
 def sortArray(nums):

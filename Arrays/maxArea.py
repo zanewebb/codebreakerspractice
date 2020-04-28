@@ -1,3 +1,23 @@
+# third time?
+
+def maxArea(self, height: List[int]) -> int:        
+        # two pointers, starting at each end
+        l = 0
+        r = len(height) - 1
+        maxWater = 0
+        
+        while l<r:
+            curWater = (r-l)* (height[l] if height[l] < height[r] else height[r])
+            
+            maxWater = max(maxWater, curWater)
+            
+            if height[l] > height[r]:
+                r -= 1
+            else:
+                l += 1
+        
+        return maxWater
+
 # second time
 
 def maxArea(self, height: List[int]) -> int:        

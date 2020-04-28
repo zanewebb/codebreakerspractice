@@ -1,5 +1,38 @@
 # threeSum.py
 
+# fifth time, finally remembered
+
+def threeSum(self, nums: List[int]) -> List[List[int]]:
+        if len(nums) < 3:
+            return []
+        # sort nums
+        nums = sorted(nums)
+        # create set
+        ans = {}
+        
+        for i in range(0,len(nums)-2):
+            l = i+1
+            r = len(nums)-1
+            while l < r:
+                tempSum = nums[i] + nums[l] + nums[r]
+                #print(tempSum)
+                if tempSum < 0:
+                    l += 1
+                elif tempSum > 0:
+                    r -= 1
+                else:
+                    #print("adding solution "+ str(nums[i]) + str(nums[l]) + str(nums[r]) )
+                    ans[str(nums[i]) + str(nums[l]) + str(nums[r])] = [nums[i], nums[l], nums[r]]
+                    
+                    while nums[l] == nums[l-1] and l < r:
+                        l += 1
+                    r -= 1
+                    while nums[r] == nums[r+1] and l < r:
+                        r -= 1
+        
+        #print(ans.values())
+        return ans.values()
+
 # fourth time
 
 # really need to remember that there needs to be two sub loops within the sub while loop that allow the sub loop (for moving l and r) to exit its condition.

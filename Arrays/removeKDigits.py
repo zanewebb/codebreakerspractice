@@ -1,3 +1,36 @@
+
+# sixtht ime
+def removeKdigits(self, num: str, k: int) -> str:
+        if len(num) == 0:
+            return "0"
+        
+        stack = []
+        
+        for s in num:
+            while len(stack) > 0 and k > 0 and int(s) < stack[-1]:
+                stack.pop()
+                k -= 1
+            stack.append(int(s))
+        
+        while len(stack) > 0 and k > 0:
+            k -= 1
+            stack.pop()
+        
+        
+        #build answer
+        seenNonZero = False
+        ans = ""
+        while len(stack) > 0:
+            popped = stack.pop(0)
+            if popped != 0 or seenNonZero:
+                seenNonZero = True
+                ans += str(popped)
+        
+        if len(ans) == 0:
+            return "0"
+        
+        return ans
+
 # fifth time
 def removeKdigits(self, num: str, k: int) -> str:
         if len(num) == 0:
