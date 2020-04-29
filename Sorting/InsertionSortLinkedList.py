@@ -6,6 +6,39 @@
 
 class Solution:
 
+    # second try, damn i came up with a good solution for once
+    def insertionSortList(self, head: ListNode) -> ListNode:
+        # should be O(N^2) solution
+        
+        if not head or not head.next:
+            return head
+        
+        # track new head and cur
+        sortedHead, cur = head, head.next
+        sortedHead.next = None
+        
+        # while cur is not none
+        while cur:
+            # hold on to cur.next
+            unsortedNext = cur.next
+            # declare sorted cur
+            sortedCur = sortedHead
+            # if the first node in the sorted list is already too big, make it the new head
+            if sortedCur.val > cur.val:
+                cur.next = sortedCur
+                sortedHead = cur
+            else:
+                # while innercur.next.val is > outercur.val and innercur.next is not none
+                while sortedCur.next and sortedCur.next.val <= cur.val :
+                    # move down the sorted linked list
+                    sortedCur = sortedCur.next
+                # place the out val in the proper place on the sorted linkedList
+                temp = sortedCur.next
+                sortedCur.next = cur
+                cur.next = temp 
+            cur = unsortedNext
+        # return sortedHead
+        return sortedHead
 
    # first try, i think its close, temp save 
     def insertionSortList(self, head: ListNode) -> ListNode:

@@ -1,4 +1,121 @@
 
+# fifth try
+
+    # I dont understand why I cant get this one right. "wrong answer" on test case 14
+    # not sure what about this test case maakes it crippling
+    # ["LRUCache","put","put","put","put","put","get","put","get","get","put","get","put","put","put","get","put","get","get","get","get","put","put","get","get","get","put","put","get","put","get","put","get","get","get","put","put","put","get","put","get","get","put","put","get","put","put","put","put","get","put","put","get","put","put","get","put","put","put","put","put","get","put","put","get","put","get","get","get","put","get","get","put","put","put","put","get","put","put","put","put","get","get","get","put","put","put","get","put","put","put","get","put","put","put","get","get","get","put","put","put","put","get","put","put","put","put","put","put","put"]
+    # [[10],[10,13],[3,17],[6,11],[10,5],[9,10],[13],[2,19],[2],[3],[5,25],[8],[9,22],[5,5],[1,30],[11],[9,12],[7],[5],[8],[9],[4,30],[9,3],[9],[10],[10],[6,14],[3,1],[3],[10,11],[8],[2,14],[1],[5],[4],[11,4],[12,24],[5,18],[13],[7,23],[8],[12],[3,27],[2,12],[5],[2,9],[13,4],[8,18],[1,7],[6],[9,29],[8,21],[5],[6,30],[1,12],[10],[4,15],[7,22],[11,26],[8,17],[9,29],[5],[3,4],[11,30],[12],[4,29],[3],[9],[6],[3,4],[1],[10],[3,29],[10,28],[1,20],[11,13],[3],[3,12],[3,8],[10,9],[3,26],[8],[7],[5],[13,17],[2,27],[11,15],[12],[9,19],[2,15],[3,16],[1],[12,17],[9,1],[6,19],[4],[5],[5],[8,1],[11,7],[5,2],[9,28],[1],[2,2],[7,4],[4,22],[7,24],[9,26],[13,28],[11,26]]
+class Node:
+    def __init__(self, key, val):
+        self.key = key
+        self.val = val
+        self.prev = None
+        self.next = None
+    def __str__(self):
+        return "(" + str(self.key)+","+str(self.val)+")"
+    def __repr__(self):
+        return "(" + str(self.key)+","+str(self.val)+")"
+        
+class Deque:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+    
+    # function for adding to front
+    def add(self, node: Node):
+        # using node, assign node's next to be head
+        node.next = self.head
+        # assign self.head's prev to be node
+        if self.head:
+            self.head.prev = node
+        else:
+            self.tail = node
+        # assign self.head to be node
+        self.head = node
+    
+    # function for removing from back
+    def removeFromBack(self) -> int:
+        #print( self.tail)
+        # capture the key from the self.tail node
+        retKey = self.tail.key
+        if self.tail.prev:
+            self.tail.prev.next = None
+            # set self.tail equal to self.tail.prev
+            self.tail = self.tail.prev
+        
+        # otherwise, set self.head and self.tail to None
+        else:
+            self.head = self.tail = None
+        
+        return retKey
+        
+    # function for refreshing a key in the Deque
+    def refreshNode(self, node: Node):
+        # if the node has a prev and a next
+        if node.prev and node.next:
+            # set node.prev.next to node.next
+            node.prev.next = node.next
+            # set node.next.prev to node.prev
+            node.next.prev = node.prev
+            self.add(node)
+        # if node has no next, node must be tail
+        elif not node.next:
+            # remove from back
+            self.removeFromBack()
+            # add to front
+            self.add(node)
+            
+        # if node has no prev, node must be head, do nothing
+        
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.size = 0
+        self.values = {}
+        self.deque = Deque()
+
+    def get(self, key: int) -> int:
+        #print("get")
+        # get node from self.values
+        if key not in self.values:
+            return -1
+        else:
+            node = self.values[key]
+            # refresh node in deque by passing the node
+            self.deque.refreshNode(node)
+            # return the node.val
+            return node.val
+
+    def put(self, key: int, value: int) -> None:
+        # if the key is already in the dict
+        if key in self.values:
+            # using that node, update the value 
+            node = self.values[key]
+            node.val = value
+            # refresh that node
+            self.deque.refreshNode(node)
+        # otherwise
+        else:
+            # create a node
+            node = Node(key, value)
+            # add it to the dict
+            self.values[key] = node
+            # add it to the deque
+            self.deque.add(node)
+            # increment our size
+            self.size += 1
+            # check if the size is greater than the capacity
+            if self.size > self.capacity:
+                # if so, remove from the back of the deque and capture the popped key
+                retKey = self.deque.removeFromBack()
+                # remove that entry from the values dict
+                self.values.pop(retKey, None)
+                # decrement the size
+                self.size -= 1
+        #print(len(self.values.values()))
+        print(self.values)
+            
 
 # fourth try, somehow hit an edge case with a key error after like 80 transactions
 

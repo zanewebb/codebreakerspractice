@@ -1,5 +1,22 @@
 #maxSubArray
 
+# fifth time, forgot what the super elegant solution was 
+def maxSubArray(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
+        
+        # track current max and best max
+        curMax, bestMax = 0, -99999999999999999
+        for i in range(0,len(nums)):
+            curMax += nums[i]
+            
+            bestMax = max(bestMax, curMax)
+            
+            if curMax < 0:
+                curMax = 0
+        
+        return bestMax
+
 # super elegant solution
 for i in range(1,len(nums)):
         nums[i] = max(nums[i], nums[i-1] + nums[i])
