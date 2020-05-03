@@ -1,6 +1,32 @@
 # twoSum.py
 class Solution:
 
+
+    # fifth time
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        
+        # store dict
+        comps = {}
+        
+        # for each num, enumerated
+        for i, n in enumerate(nums):
+            # find the compliment (?) of this number to the target
+            comp = target - n
+            
+            # if that compliment is not in the dict, then add it with the index of this num
+            if comp not in comps:
+                comps[n] = i
+            
+            # if it IS in the dict, we found its other number, so return the index at 
+            # the compliment key and the current index
+            else:
+                return [comps[comp], i]
+
 #fourth time 
 
 class Solution:
