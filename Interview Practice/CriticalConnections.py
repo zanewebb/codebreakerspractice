@@ -1,3 +1,47 @@
+# fifth time, got it after some minor debugs
+class Solution:
+    def __init__(self):
+        self.depths = None
+        self.nodes = None
+        self.ans = []
+    
+    def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
+        self.depths = [-1] * n
+        self.nodes = collections.defaultdict(set)
+        for conn in connections:
+            self.nodes[conn[0]].add(conn[1])
+            self.nodes[conn[1]].add(conn[0])
+        
+        self.DFS(connections[0][0], -1, 0)
+        
+        return self.ans
+    
+    def DFS(self, current, parent, depth):
+        # set the depth value now that we've arrived at this node
+        self.depths[current] = depth
+        
+        # iterate over linked nodes
+        for n in self.nodes[current]:
+            # make sure to skip the DFS if we just came from that node
+            if n == parent:
+                continue
+            
+            # if we havent seen it, perform the DFS
+            if self.depths[n] == -1:
+                self.DFS(n, current, depth + 1)
+                
+                # update the depth for this node to see if it ended in a cycle
+                self.depths[current] = min(self.depths[n], self.depths[current])
+                
+            # if we have seen it, just update the depth for this node
+            else:
+                self.depths[current] = min(self.depths[n], self.depths[current])
+        
+        # before leaving this node, see if the DFS after this node updated the depth value
+        # this would make it a critical connection if it did not
+        if self.depths[current] == depth and parent != -1:
+            self.ans.append([current, parent])
+
 # fourth time, so close to a clean implementation
 
 # it is critical that we CONTINUE if we encounter a parent. This should ALSO remind me that the parent check is part of the 
