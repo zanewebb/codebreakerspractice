@@ -2,6 +2,20 @@
 
 class Solution:
 
+    # fifth time, always forget to sort the workers 
+    def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
+        
+        jobs = list(sorted(zip(difficulty, profit)))
+        print(jobs)
+        bestProfit = totalProfit = currentJob = 0        
+        for w in sorted(worker):
+            while currentJob < len(jobs) and jobs[currentJob][0] <= w:
+                bestProfit = max(jobs[currentJob][1], bestProfit)
+                currentJob += 1
+            totalProfit += bestProfit
+            
+        return totalProfit
+
     #Fourth time
     def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
         # zip the difficulty and profit together to form jobs and convert that to a list

@@ -1,5 +1,26 @@
 # removeDuplicates.py
 
+# fifth time
+def removeDuplicates(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return 1
+        if len(nums) == 0:
+            return 0
+        
+        i = 1
+        unique = 0
+        while i < len(nums):
+            if nums[i] != nums[unique]:
+                unique += 1
+                nums[unique] = nums[i]
+                
+                while i<len(nums) and nums[i] == nums[unique]:
+                    i += 1
+            else:
+                i += 1
+                
+        return unique + 1
+
 #fourth or fifth time
 def removeDuplicates(self, nums: List[int]) -> int:
         if len(nums) <= 1:

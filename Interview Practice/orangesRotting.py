@@ -1,3 +1,51 @@
+
+# second time
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        
+        # figure out what's currently rotting
+        rotting = []
+        totalOranges = 0
+        totalRotted = 0
+        for r in range(len(grid)):
+            for c in range(len(grid[0])):
+                if grid[r][c] == 2:
+                    rotting.append([r,c])
+                    totalOranges += 1
+                    totalRotted += 1
+                elif grid[r][c] == 1:
+                    totalOranges += 1
+        
+        # track the count, and new rotting oranges
+        minutes = 0
+        newRotting = []
+        directions = [[0,1], [0,-1], [1,0], [-1,0]] # right, left, down, up
+        while True:
+            for ro in rotting:
+                for d in directions:
+                    r = ro[0] + d[0]
+                    c = ro[1] + d[1]
+                    if 0 <= r < len(grid) and  0 <= c < len(grid[0]) and grid[r][c] == 1:
+                        # track the new rotting orange
+                        newRotting.append([r,c])
+                        
+                        # set that orange to be rotting
+                        grid[r][c] = 2
+                        
+                        # increment our rotted count
+                        totalRotted += 1
+                        
+            # if we rotted no new oranges, then the previous minute was the last minute
+            if len(newRotting) == 0 :
+                if totalRotted == totalOranges:
+                    return minutes
+                else:
+                    return -1
+            
+            rotting = newRotting
+            newRotting = []
+            minutes += 1
+
 # First try after reviewing solution
 
 #this section

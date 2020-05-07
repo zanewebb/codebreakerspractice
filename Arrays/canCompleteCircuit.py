@@ -1,6 +1,26 @@
 # canCompleteCircuit.py
 
 class Solution:
+    # fifth time
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        if sum(gas) < sum(cost):
+            return -1
+        elif len(gas) == 0 or len(cost) == 0:
+            return -1
+        
+        stations = list(zip(gas, cost))
+        
+        currentGas, bestStation = 0 , -1
+        
+        for i,s in enumerate(stations):
+            currentGas += s[0] - s[1]
+            
+            if currentGas < 0:
+                currentGas, bestStation = 0, -1
+            elif bestStation == -1:
+                bestStation = i
+                
+        return bestStation
 
     #fourth time
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
