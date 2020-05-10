@@ -1,5 +1,17 @@
 # buySellStockII.py
 
+# sixth time
+
+def maxProfit(self, prices: List[int]) -> int:
+        if len(prices) == 1:
+            return 0
+        total = 0
+        for i,p in enumerate(prices):
+            if i == 0:
+                continue
+            if p > prices[i-1]:
+                total += p - prices[i-1] 
+        return total
 
 # fifth time 
 def maxProfit(self, prices: List[int]) -> int:

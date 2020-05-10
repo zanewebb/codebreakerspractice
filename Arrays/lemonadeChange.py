@@ -2,6 +2,28 @@
 
 class Solution:
 
+    # fifth time
+    class Solution(object): #aw
+    def lemonadeChange(self, bills):
+        # establish cash register values (only the values usable for change)
+        fives = tens = 0
+        
+        for b in bills:
+            if b == 5:
+                fives += 1
+            elif b == 10 and fives >= 1:
+                fives -= 1
+                tens += 1
+            elif b == 20 and tens >= 1 and fives >= 1:
+                tens -= 1
+                fives -= 1
+            elif b == 20 and fives >=3:
+                fives -= 3
+            else:
+                return False
+        
+        return True
+
     #fourth time
     def lemonadeChange(self, bills):
         # establish cash register values (only the values usable for change)

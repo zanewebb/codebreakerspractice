@@ -6,6 +6,42 @@
 
 class Solution:
 
+# fifth time
+def longestMountain(self, A: List[int]) -> int:
+        if len(A) < 3:
+            return 0
+        
+        # if the length is less than 3, cant be a mountain at all
+        direction = maxLen = 0
+        curLen = 1
+        
+        # for each num
+        i = 1
+        while i < len(A):
+            # if the height is higher than the last
+            if A[i] > A[i-1]:
+                # if the direction is currently down, set the curLen to 1
+                if direction == -1:
+                    curLen = 1
+                # set the direction to up, increment curlen
+                direction, curLen = 1, curLen + 1
+                
+            # elif the height is lower than the last and the curlen is >= 2
+            elif A[i] < A[i-1] and curLen >= 2:
+                # increment curLen, set the direction to down
+                direction, curLen = -1, curLen + 1
+                
+                # set maxLen to max of curLen and itself
+                maxLen = max(curLen, maxLen)
+                
+            # else (height must be equal to the last)
+            else:
+                #set curLen and direction to 0
+                curLen, direction = 1, 0
+            
+            i += 1
+        
+        return maxLen
 
 # fourth solution
 

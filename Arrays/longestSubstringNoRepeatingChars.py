@@ -1,5 +1,19 @@
 class Solution:
 
+    # fourth time
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        seen = set()
+        best = 0
+        l = 0
+        for c in s:
+            if c in seen:
+                while len(seen) > 0 and c in seen:
+                    seen.discard(s[l])
+                    l += 1
+            seen.add(c)
+            best = max(best, len(seen))
+        return best  
+
     # third time, makes sense, similar solution strat to sub arrays product less than k
     def lengthOfLongestSubstring(self, s: str) -> int:
         if len(s) == 1:

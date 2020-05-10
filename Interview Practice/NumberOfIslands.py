@@ -1,4 +1,28 @@
 
+# second time ?
+def numIslands(self, grid: List[List[str]]) -> int:
+        count = 0
+        
+        for r in range(len(grid)):
+            for c in range(len(grid[r])):
+                if grid[r][c] == "1":
+                    self.DFS(r,c, grid)
+                    count += 1
+        
+        return count
+    
+    def DFS(self, r, c, grid):
+        if r >= len(grid) or c >= len(grid[0]) or c < 0 or r < 0 or grid[r][c] != "1":
+            return
+        
+        grid[r][c] = "X"
+        
+        self.DFS(r+1, c, grid)
+        self.DFS(r-1, c, grid)
+        self.DFS(r, c+1, grid)
+        self.DFS(r, c-1, grid)0
+
+
 # found this solution strat, works well, makes sense
 
 class Solution:

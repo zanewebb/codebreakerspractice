@@ -2,6 +2,33 @@
 
 class Solution:
 
+    # 3rd time??
+    # Using the "place" var helped a lot in my thinking 
+
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        if m == 0:
+            nums1[:] = nums2 
+        
+        n -= 1
+        m -= 1
+        place = len(nums1) - 1
+        while place >= 0:
+            if m < 0:
+                nums1[place] = nums2[n]
+                n, place = n-1, place-1
+            elif n < 0:
+                place = -1
+            elif nums1[m] > nums2[n]:
+                nums1[place] = nums1[m]
+                m -= 1
+                place -= 1
+            elif nums1[m] <= nums2[n]:
+                nums1[place] = nums2[n]
+                n -= 1
+                place -= 1
 
     #executed the solution i found, was not as clean as i had seen it before 
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:

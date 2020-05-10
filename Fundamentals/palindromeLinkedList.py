@@ -4,6 +4,58 @@
 #         self.val = x
 #         self.next = None
 
+# 5th time
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: ListNode) -> bool:
+        if not head or not head.next:
+            return True
+        dummy = ListNode(-1)
+        dummy.next = head
+        slow, fast = dummy, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        revhalf = self.reverse(slow.next)
+        slow.next = None
+        slow = head
+        
+        while slow and revhalf:
+            if slow.val != revhalf.val:
+                return False
+            slow = slow.next
+            revhalf = revhalf.next
+            
+        return True
+        
+        
+    def reverse(self, head:ListNode) -> ListNode:
+        prev = None
+        cur = head
+        temp = None
+        
+        while cur:
+            temp = cur.next
+            cur.next = prev
+            prev = cur
+            cur = temp
+        
+        return prev
+    
+
+    def printLinkedList(self, head:ListNode):
+        cur = head
+        while cur:
+            print(cur.val)
+            cur = cur.next
+        
+
+
 # 4th time
 
 class Solution:

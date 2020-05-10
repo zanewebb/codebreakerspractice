@@ -1,4 +1,37 @@
 
+# seventh time
+
+def removeKdigits(self, num: str, k: int) -> str:
+        
+        stack = []
+        
+        for n in num:
+            while k > 0 and len(stack) > 0 and int(n) < stack[-1]:
+                stack.pop()
+                k -= 1
+                
+            stack.append(int(n))
+            
+        
+        while k > 0 and len(stack) > 0:
+            stack.pop()
+            k -= 1
+        
+        ans = ""
+        foundnonzero = False
+        
+        while len(stack) > 0:
+            popped = str(stack.pop(0))
+            
+            if popped in "123456789" or foundnonzero:
+                foundnonzero = True
+                ans += popped
+        
+        if not ans:
+            return "0"
+        
+        return ans
+
 # sixtht ime
 def removeKdigits(self, num: str, k: int) -> str:
         if len(num) == 0:

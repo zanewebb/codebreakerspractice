@@ -1,5 +1,29 @@
 # numSubArrayProductLessThanK.py
 
+# fourth time
+
+def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:   
+        if k < 1:
+            return 0
+        
+        count = l = r = 0
+        cur = 1
+        while r < len(nums):
+            cur *= nums[r]
+
+            if cur < k:
+                count += r - l + 1
+            else:# cur >= k:
+                while cur >= k and l <= r:
+                    cur /= nums[l]
+                    l += 1
+                
+                count += r - l + 1
+            
+            r += 1
+        return count
+
+
 # third time, simple enough i suppose
 
 def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:   

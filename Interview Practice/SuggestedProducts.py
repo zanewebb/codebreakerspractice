@@ -1,3 +1,44 @@
+# third time
+class Trie:
+    def __init__(self):
+        self.suggestions = [] # list of words
+        self.children = {} # dict of other tries
+
+class Solution:
+    
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        # populate the search trie
+        root = Trie()
+        for p in sorted(products):
+            cur = root
+            for c in p:
+                # the child trie exists, traverse to it
+                if c in cur.children:
+                    
+                    cur = cur.children[c]
+                    
+                # the child trie does not exist, create it and add this word to its suggestions
+                else:
+                    cur.children[c] = Trie()
+                    cur = cur.children[c]
+                
+                # adding this word to its suggestions
+                if len(cur.suggestions) < 3:
+                        cur.suggestions.append(p)
+        
+        # build the answer list of "keystrokes"
+        ans = []
+        cur = root
+        for c in searchWord:
+            if cur and c in cur.children:
+                cur = cur.children[c]
+                ans.append(cur.suggestions)
+            else:
+                cur = None
+                ans.append([])
+        
+        return ans
+
 
 # second attempt trie solution
 class Trie:

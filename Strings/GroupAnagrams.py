@@ -1,4 +1,15 @@
-
+# third time
+def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        
+        ans = collections.defaultdict(list)
+        
+        for w in strs:
+            wrdsig = [0] * 26
+            for c in w:
+                wrdsig[ord(c) - 97] += 1
+            ans["".join([str(x) for x in wrdsig])].append(w)
+        
+        return ans.values()
 
 # second time
 
