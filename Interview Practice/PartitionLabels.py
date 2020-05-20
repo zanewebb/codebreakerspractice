@@ -1,5 +1,38 @@
 class Solution(object):
 
+    # second time 
+    def partitionLabels(self, S: str) -> List[int]:
+        lastIndicies = {}
+        
+        for i,c in enumerate(S):
+            lastIndicies[c] = i
+        
+        l = r = i = 0
+        seen = {}
+        ans = []
+        
+        # "ababcbaca defegde hijhklij"
+        # a = 8, b = 5, c = 7, 
+        
+        
+        
+        while i < len(S):
+            # set the outer edge of this partition as far as required by each char
+            r = max(lastIndicies[S[i]], r)
+            
+            # when our iterator equals that outer edge, this is the smallest window we could have 
+            # with the chars we've seen so far
+            if i == r:
+                ans.append(r-l+1)
+                l = r+1
+                r += 1
+            
+            i += 1
+        
+        return ans
+                
+
+
    # implemented the accepted solution after looking at it
    def partitionLabels(self, S: str) -> List[int]:
         # create and populate a dict which stores the last index of each char

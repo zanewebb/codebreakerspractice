@@ -1,5 +1,49 @@
 class Solution:
 
+    # third time? rough time completing it
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        if obstacleGrid[len(obstacleGrid)-1][len(obstacleGrid[0])-1] == 1 or obstacleGrid[0][0] == 1:
+            return 0
+        if len(obstacleGrid) == 1 and len(obstacleGrid[0]) == 1:
+            return 1
+        
+            
+        
+        # mark obstacles
+        for r in range(len(obstacleGrid)):
+            for c in range(len(obstacleGrid[0])):
+                if obstacleGrid[r][c] == 1:
+                    obstacleGrid[r][c] = -1
+        # prep corner
+        obstacleGrid[len(obstacleGrid)-1][len(obstacleGrid[0])-1] == 1
+        
+        # print(obstacleGrid)
+        
+        # prep right side
+        for r in range(len(obstacleGrid)-2, -1, -1):
+            if obstacleGrid[r][len(obstacleGrid[0])-1] != -1:
+                obstacleGrid[r][len(obstacleGrid[0])-1] = 1 if obstacleGrid[r+1][len(obstacleGrid[0])-1] != -1 else -1
+                
+        
+        # prep bottom side
+        for c in range(len(obstacleGrid[0])-2, -1, -1):
+            if obstacleGrid[len(obstacleGrid)-1][c] != -1:
+                obstacleGrid[len(obstacleGrid)-1][c] = 1 if obstacleGrid[len(obstacleGrid)-1][c+1] != -1 else -1
+                
+        # print(obstacleGrid)
+        
+        for r in range(len(obstacleGrid)-2, -1, -1):
+            for c in range(len(obstacleGrid[0])-2, -1, -1):
+                if obstacleGrid[r][c] != -1:
+                    obstacleGrid[r][c] = (obstacleGrid[r+1][c] if obstacleGrid[r+1][c] != -1 else 0)+(obstacleGrid[r][c+1] if obstacleGrid[r][c+1] != -1 else 0)
+        
+        # print(obstacleGrid)
+        return obstacleGrid[0][0]
+
+
+
+        
+
    # after following the accepted solution this is much nicer
     def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
         if not obstacleGrid:

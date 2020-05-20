@@ -1,5 +1,14 @@
+# second time ?
 class Solution:
+def reorderLogFiles(self, logs: List[str]) -> List[str]:
+    return sorted(logs, key=self.sorter)
+def sorter(self, a):
+    if a.split(" ")[1].isdigit():
+        return (1,)
+    else:
+        return (-1,a.split(" ")[1:],a.split(" ")[0])
 
+class Solution:
 
    # got it first time! 
    # probably could be more optimal if you held onto the identifiers as the keys to whether or not theyre letter or digit logs but

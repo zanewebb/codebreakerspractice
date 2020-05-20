@@ -1,5 +1,38 @@
 import random
 
+# fourth time
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        self.quickSort(nums)
+        return nums
+        
+    def quickSort(self, nums):
+        random.shuffle(nums)
+        
+        self.partition(0, len(nums)-1, nums)
+    
+    def partition(self, l, r, nums):
+        # check that we're not only looking at one index
+        if l >= r or r >= len(nums):
+            return
+        
+        # attempt to place the val at l
+        nextSwap = l
+        i = l+1
+        while i <=r :
+            # move values less than the val being placed to the left of it
+            if nums[i] <= nums[l]:
+                nextSwap += 1
+                nums[i],nums[nextSwap] = nums[nextSwap], nums[i]
+            i += 1
+            
+        # place the value
+        nums[l], nums[nextSwap] = nums[nextSwap], nums[l]
+        
+        self.partition(l, nextSwap-1, nums)
+        self.partition(nextSwap+1, r, nums)
+        
+
 # third time, quicksort good
 
 def sortArray(self, nums: List[int]) -> List[int]:
