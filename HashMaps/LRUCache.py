@@ -1,4 +1,102 @@
 
+# sixth try, got it after waaaay too long debugging, single class seems to reduce bugs in my setup, there are less edge cases than i think for the removal of a node
+
+class ListNode:
+    def __init__(self, key, val):
+        self.next = None
+        self.key = key
+        self.val = val
+        self.prev = None
+
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.head = None
+        self.tail = None
+        self.nodes = {}
+        self.cap = capacity
+
+    def get(self, key: int) -> int:
+        # print("Before Get:")
+        # self.printList()
+        # print(self.nodes.keys())
+        ret = -1
+        if key in self.nodes:
+            # track return value
+            ret = self.nodes[key].val
+            
+            # refresh the node
+            refr = self.nodes[key]
+            self.removeNode(refr)
+            self.placeFront(refr)
+            # print("After Successful Get:")
+            # self.printList()
+            return ret
+        return ret
+
+    def put(self, key: int, value: int) -> None:
+        #repl = True if key in self.nodes else False
+        
+        if key in self.nodes:
+            self.removeNode(self.nodes[key])
+        
+        self.nodes[key] = ListNode(key, value)
+        self.placeFront(self.nodes[key])
+        
+        print(len(self.nodes),self.cap)
+        if len(self.nodes) > self.cap:
+            # print("tail is", self.tail.key, self.tail.val )
+            remKey = self.removeNode(self.tail)
+            self.nodes.pop(remKey)
+            # print("after removal",len(self.nodes),self.cap)
+            # print(self.nodes.keys())
+    
+    def removeNode(self, delNode):
+            if delNode.prev and delNode.next:
+                delNode.prev.next = delNode.next
+                delNode.next.prev = delNode.prev
+            elif delNode == self.head and delNode.next:
+                delNode.next.prev = None
+                self.head = delNode.next
+            elif delNode == self.tail and delNode.prev:
+                delNode.prev.next = None
+                self.tail = delNode.prev
+            # this else case means that there is only one node in the list
+            else:
+                self.head = None
+                self.prev = None
+            
+            # self.printList()
+            
+            delNode.next = None
+            delNode.prev = None
+            return delNode.key
+
+    def placeFront(self, refr):
+        refr.prev = None
+        refr.next = self.head
+        self.head = refr
+        
+        if refr.next == None:
+            self.tail = refr
+        else:
+            refr.next.prev = self.head
+            
+    def printList(self):
+        cur = self.head
+        string = ""
+        while cur:
+            string += "-> ("+str(cur.key)+","+str(cur.val)+") "
+            cur = cur.next
+        print(string)
+
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
+
+
 # fifth try
 
     # I dont understand why I cant get this one right. "wrong answer" on test case 14

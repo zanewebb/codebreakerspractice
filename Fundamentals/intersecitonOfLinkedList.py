@@ -1,3 +1,42 @@
+# 6th time, rusty
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        if not headA or not headB:
+            return None
+        
+        
+        curA, curB = headA, headB
+        while curA.next or curB.next:
+            if curA.next:
+                curA = curA.next
+            if curB.next:
+                curB = curB.next
+                
+       #print(curB.val)
+        if curA != curB:
+            print("y")
+            return None
+        
+        
+        curA, curB = headA, headB
+        while curA != curB:
+            curA, curB = curA.next, curB.next
+            if not curA:
+                curA = headB
+            if not curB:
+                curB = headA
+        
+        return curA
+
+
+
 # fifth time
 
 # Definition for singly-linked list.

@@ -1,3 +1,22 @@
+# second time, ouch, complete wipeout
+
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        # one pass, dict for rolling sum occurences
+        
+        sums = {0:1}
+        rollingSum = count = 0
+        
+        for n in nums:
+            rollingSum += n
+            if rollingSum - k in sums:
+                count += sums[rollingSum - k]
+            sums[rollingSum] = sums.get(rollingSum, 0) + 1
+        
+        return count
+
+
+
 class Solution:
 
 

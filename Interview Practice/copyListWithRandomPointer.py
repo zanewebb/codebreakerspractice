@@ -1,3 +1,59 @@
+# second time, had a lot of trouble, unsure how i crafted that solution next time, i need sleep 
+
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
+
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        # should be two passes, one to duplicate and track randoms, 
+        # one to assign randoms on copy
+        
+        # should be a dict of composite key (node val + index) : newNodes
+        rands = {}
+        
+        ind = 0
+        # start with dummy nodes
+        cur = Node(-1, head, None)
+        newCur = Node(-1, None, None)
+        newHead = None
+        while cur:
+            if cur.next:
+                temp = Node(cur.next.val)
+                cur.next.val = str(temp.val) + str(ind)
+                newCur.next = temp
+                rands[cur.next.val] = temp
+                
+                if cur.next == head:
+                    newHead = temp
+            else:
+                newCur.next = None
+            
+            ind += 1
+            newCur = newCur.next
+            cur = cur.next
+        
+        # assign rands
+        cur = head
+        newCur = newHead
+        ind = 0
+        while newCur:
+            if cur.random:
+                newCur.random = rands.get(cur.random.val, None)
+            else:
+                newCur.random = None
+            cur = cur.next
+            newCur = newCur.next
+            ind += 1
+        return newHead
+
+
+
 """
 # Definition for a Node.
 class Node:

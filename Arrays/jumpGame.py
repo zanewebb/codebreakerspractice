@@ -1,4 +1,18 @@
-# third tim
+# fourth time
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        bestDist = 0
+        curDist = 0
+        
+        for i in range(len(nums)):
+            curDist = nums[i] + i
+            if i > bestDist:
+                return False
+            bestDist = max(curDist, bestDist)
+        
+        return True
+
+# third time
 def canJump(self, nums: List[int]) -> bool:
         if len(nums) == 1:
             return True
