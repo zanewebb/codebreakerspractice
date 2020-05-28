@@ -1,3 +1,42 @@
+# second time, got caught up on the criteria for what makes a valid lcoation
+#(only visit locations that havent been visited yet)
+# the logic being that if it was already visited, then the location in question
+# must be closer to a different gate, so ignore it
+
+class Solution:
+    def wallsAndGates(self, rooms: List[List[int]]) -> None:
+        """
+        Do not return anything, modify rooms in-place instead.
+        """
+        
+        
+        
+        # collect locations where there are gates
+        locs = deque()
+            
+        for r in range(len(rooms)):
+            for c in range(len(rooms[0])):
+                if rooms[r][c] == 0:
+                    locs.append([r,c])
+        
+        # work outwards counting out the steps away from the closest gates
+        dirs = [[0,1], [0,-1], [1,0], [-1,0]]
+        while len(locs) > 0:
+            loc = locs.popleft()
+            for d in dirs:
+                r = loc[0] + d[0]
+                c = loc[1] + d[1]
+                
+                # if it is a valid location (only visit locations that havent been visited yet)
+                # the logic being that if it was already visited, then the location in question
+                # must be closer to a different gate, so ignore it
+                if r >= 0 and r < len(rooms) and c >= 0 and c < len(rooms[0]) and rooms[r][c] == 2147483647:
+                    # assign the potential location to be the smaller of the path we're expanding or the existing path
+                    rooms[r][c] = rooms[loc[0]][loc[1]] + 1
+                    # add it to the queue
+                    locs.append([r,c])
+
+
 class Solution:
 
    # accepted BFS solution

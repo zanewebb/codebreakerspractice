@@ -1,3 +1,25 @@
+
+# second time
+
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        ans = []
+        self.permutee(nums, ans, 0)
+        return ans
+    def permutee(self, nums, ans, ind):
+        # if this round of permutations has reached the end of the nums list
+        if ind == len(nums):
+            # append a deep copy
+            ans.append(nums[:])
+            
+        
+        for i in range(ind, len(nums)):
+            nums[i], nums[ind] = nums[ind], nums[i]          
+            self.permutee(nums, ans, ind+1)
+            nums[i], nums[ind] = nums[ind], nums[i] 
+
+
+
 class Solution:
     def __init__(self):
         self.nums = None

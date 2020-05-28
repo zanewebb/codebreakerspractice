@@ -1,3 +1,45 @@
+# second time, sloppy execution, how am i doing worse than the first time i saw it???
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        c1, c2 = l1, l2
+        
+        if not c1:
+            return c2
+        if not c2:
+            return c1
+        
+        # only advance the cur of a given list if we've chosen a val for it
+        
+        # decide the head
+        nh = c1 if c1.val <= c2.val else c2
+        n = ListNode(-1)
+        # while c1 or c2
+        while c1 or c2:
+            if not c1:
+                n.next = c2
+                c2 = c2.next
+                n = n.next
+            elif not c2 :
+                n.next = c1
+                c1 = c1.next
+                n = n.next
+            elif c2.val < c1.val:
+                n.next = c2
+                c2 = c2.next
+                n = n.next
+            elif c1.val <= c2.val:
+                n.next = c1
+                c1 = c1.next
+                n = n.next
+        
+        return nh
+
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
