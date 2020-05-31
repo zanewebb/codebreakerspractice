@@ -1,3 +1,35 @@
+# fifth time
+class Node:
+    def __init__(self):
+        self.suggestions = []
+        self.children = {}
+
+class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        root = Node()
+        for p in sorted(products):
+            cur = root
+            for c in p:
+                if c not in cur.children:
+                    cur.children[c] = Node()
+                
+                cur = cur.children[c]
+                if len(cur.suggestions) < 3:
+                    cur.suggestions.append(p)
+        
+        # mimic keystrokes
+        cur = root
+        ans = []
+        for c in searchWord:
+            if cur and c in cur.children:
+                cur = cur.children[c]
+                ans.append(cur.suggestions)
+            else:
+                cur = None
+                ans.append([])
+        
+        return ans
+
 
 # fourth time
 

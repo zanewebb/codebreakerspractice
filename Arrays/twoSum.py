@@ -1,3 +1,19 @@
+# sixth time, dict way is more space but faster over all ?
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        nums = sorted(enumerate(nums), key=lambda x: x[1])
+        
+        l, r = 0, len(nums)-1
+        
+        while l < r:
+            if nums[l][1] + nums[r][1] == target:
+                return [nums[l][0],nums[r][0]]
+            elif nums[l][1] + nums[r][1] < target:
+                l += 1
+            else:
+                r -= 1
+
 # twoSum.py
 class Solution:
 

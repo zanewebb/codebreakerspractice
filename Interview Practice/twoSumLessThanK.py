@@ -1,4 +1,20 @@
 
+# second time
+class Solution:
+    def twoSumLessThanK(self, A: List[int], K: int) -> int:
+        l, r = 0, len(A) - 1
+        bestsum = 0
+        A = sorted(A)
+        while l < r: 
+            tempsum = A[l] + A[r]
+            if tempsum < K:
+                bestsum = max(bestsum, tempsum)
+                l += 1
+            else:
+                r -= 1
+        return bestsum if bestsum != 0 else -1
+
+
 # extremely similar to twosum
 class Solution:
     def twoSumLessThanK(self, A: List[int], K: int) -> int:

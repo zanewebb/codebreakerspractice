@@ -1,3 +1,17 @@
+# third time 
+class Solution:
+    def reorderLogFiles(self, logs: List[str]) -> List[str]:
+        return sorted(logs, key = self.logSort)
+    
+    
+    def logSort(self, log):
+        splitLog = log.split(" ")
+        if splitLog[1].isdigit():
+            return (1,)
+        else:
+            return (-1, splitLog[1:], splitLog[0])
+
+
 # second time ?
 class Solution:
 def reorderLogFiles(self, logs: List[str]) -> List[str]:

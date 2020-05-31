@@ -1,3 +1,27 @@
+# third time
+
+class Solution:
+    def partitionLabels(self, S: str) -> List[int]:
+        lastSeen = Counter()
+        for i,c in enumerate(S):
+            lastSeen[c] = max(lastSeen.get(c, -1), i)
+        
+        l, r = 0, 0
+        windows = []
+        
+        for i,c in enumerate(S):
+            r = max(r, lastSeen[c])
+            
+            if i == r:
+                windows.append(r - l + 1)
+                l = i + 1
+            
+        return windows
+            
+            
+
+
+
 class Solution(object):
 
     # second time 

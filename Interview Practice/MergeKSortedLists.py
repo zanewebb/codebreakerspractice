@@ -1,3 +1,35 @@
+# remembered it mostly, forgot the key detail that the tuple must store the index of the list and not the list node itself
+import heapq
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        if not lists:
+            return None
+        newLists = []
+        for i,l in enumerate(lists):
+            if l:
+                newLists.append((l.val, i))
+        
+        
+        # print(newLists)
+        heapq.heapify(newLists)
+        
+        finalList = ListNode(-1)
+        cur = finalList
+        
+        while len(newLists) > 0:
+            nextList = heapq.heappop(newLists)
+            cur.next = lists[nextList[1]]
+            lists[nextList[1]] = lists[nextList[1]].next
+            
+            if lists[nextList[1]]:
+                heapq.heappush(newLists,(lists[nextList[1]].val, nextList[1]))
+            cur = cur.next
+            
+        return finalList.next   
+
+
+
+
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):

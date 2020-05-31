@@ -1,3 +1,13 @@
+# second time, much cleaner
+
+class Solution:
+    def minSteps(self, s: str, t: str) -> int:
+        countS = collections.Counter(s)
+        countT = collections.Counter(t)
+        countS.subtract(countT)
+        countS = filter(lambda x: x > 0, countS.values())
+        return sum(countS)
+
 
 # first try baybeee
 class Solution:

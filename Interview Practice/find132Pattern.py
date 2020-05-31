@@ -1,3 +1,79 @@
+# didnt have to look at the solution, typed the justification for each line
+# fourth time
+
+class Solution:
+    def find132pattern(self, nums: List[int]) -> bool:
+        if len(nums) < 3:
+            return False
+        
+        # populate our list of 
+        # "best i candidate at each index"
+        iCandidates = [nums[0]]
+        for i in range(1, len(nums)):
+            iCandidates.append(min(iCandidates[i-1], nums[i])) 
+        
+        # doing this for my own clarity
+        jCandidates = nums
+        
+        # declare a "Stack" to store our valid k options at the current index
+        kCandidates = []
+        
+        # traverse backwards down our J candidates
+        for ind in range(len(jCandidates)-1, -1, -1):
+            # we first need to verify that the j candidate is valid at the very least
+            # if the j candidate isnt valid then there is no way that it could be a k candidate
+            if iCandidates[ind] < jCandidates[ind]:
+                
+                # now that we know that is valid
+                # lets exclude k candidates that do not work with this i candidate
+                while len(kCandidates) > 0 and kCandidates[-1] <= iCandidates[ind]:
+                    kCandidates.pop()
+                
+                # if there is anything left in our stack of k candidates
+                # and that candidate is valid, we've satisfied all conditions
+                if len(kCandidates) > 0 and kCandidates[-1] < jCandidates[ind]:
+                    return True
+                
+                # if it wasnt a hit on the 132 pattern, that means we've hit the case where
+                # j was valid relative to i
+                # k was valid relative to i OR THERE ARE NO MORE K's
+                # EITHER k was not valid relative to j OR there was no K left that met the previous conditions
+                kCandidates.append(jCandidates[ind])
+        
+        return False
+            
+
+
+
+# this is extremely hard for me to comprehend
+# third time
+class Solution:
+    def find132pattern(self, nums: List[int]) -> bool:
+        if len(nums) < 3:
+            return False
+        
+        # create list smallest value encountered so far, left to right (1's)
+        mins = [nums[0]]
+        i = 1
+        while i < len(nums):
+            mins.append(min(mins[i-1], nums[i]))
+            i += 1
+        
+        # traverse backwards down the i list and nums list 
+        k = []
+        i = j = len(nums)-1
+        while i >= 0 and j >= 0:
+            if mins[i] < nums[j]:
+                while len(k) > 0 and k[-1] <= mins[i]:
+                    k.pop()
+                if len(k) > 0 and k[-1] < nums[j]:
+                    return True
+                k.append(nums[j])
+            i -= 1
+            j -= 1
+        return False 
+
+
 
 class Solution:
 

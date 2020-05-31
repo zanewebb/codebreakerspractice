@@ -1,3 +1,21 @@
+# fourth time
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        counts = [0]*26
+        ans = collections.defaultdict(list)
+        
+        for s in strs:
+            counts = [0]*26
+            for c in s:
+                counts[ord(c)-97] += 1
+            sig = "".join([str(x) for x in counts])
+            ans[sig].append(s)
+            
+        return ans.values()
+
+
+
 # third time
 def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         
