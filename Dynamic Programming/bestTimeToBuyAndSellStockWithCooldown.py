@@ -1,3 +1,30 @@
+# third time? still super confusing
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        # do not have stock
+        didSell = -99999
+        # have stock
+        haveStock = -99999
+        
+        # do not have stock
+        temp = 0
+        
+        for p in prices:
+            yesterdaysSell = didSell
+            
+            # sell today with our haveStock from yesterday (only state that has stock)
+            didSell = haveStock + p
+            
+            # to have stock today, I must have had it yesterday or purchased it today (from our backup point)
+            haveStock = max(temp - p, haveStock)
+            
+            # we hold onto a temp (backup) that only updates when our sell earned us profit 
+            temp = max(yesterdaysSell, temp)
+            
+        
+        return max(temp, didSell)
+        
+
 
 # Annotated version of the LC solution
 class Solution:

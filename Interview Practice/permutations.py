@@ -1,3 +1,29 @@
+# third time
+
+class Solution:
+    
+    def __init__(self):
+        self.nums = None
+        self.ans = []
+    
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        self.nums = nums
+        self.look(0)
+        return self.ans
+        
+    def look(self, ind):
+        if ind >= len(self.nums):
+            self.ans.append(self.nums[:])
+            return
+        
+        # [1, 2, 3]
+        
+        for i in range(ind, len(self.nums)):
+            self.nums[i], self.nums[ind] = self.nums[ind], self.nums[i]
+            self.look(ind + 1)
+            self.nums[i], self.nums[ind] = self.nums[ind], self.nums[i]
+            
+
 
 # second time
 

@@ -1,3 +1,43 @@
+# second time?
+# almost had it, forgot to preload the level delimiter / when to add new ones
+
+class Solution:
+    def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+        levels = []
+        movingLeft = True
+        levelVals = deque()
+        levelNodes = deque([root,None])
+        
+        while len(levelNodes) > 0:
+            node = levelNodes.popleft()
+            
+            if node:
+                if node.left:
+                    levelNodes.append(node.left)
+                if node.right:
+                    levelNodes.append(node.right)
+                if movingLeft:
+                    levelVals.append(node.val)
+                else:
+                    levelVals.appendleft(node.val)
+            
+            else:
+                levels.append(levelVals)
+                levelVals = deque()
+                
+                # if there are more to look at , add a level delimiter
+                if len(levelNodes) > 0:
+                    levelNodes.append(None)
+                    
+                movingLeft = not movingLeft
+            
+        return levels
+            
+
+
+
 # shaky on understandig of this, need practice on BFS thinking
 
 

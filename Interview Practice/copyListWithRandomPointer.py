@@ -1,3 +1,35 @@
+# third time
+
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        newNodes = {}
+        
+        newHead = Node(-1)
+        newCur = newHead
+        cur = head
+        ind = 0
+        
+        while cur:
+            newCur.next = Node(cur.val)
+            cur.val = str(cur.val) + str(ind)
+            
+            newNodes[cur.val] = newCur.next
+            
+            cur = cur.next
+            newCur = newCur.next
+            ind += 1
+        
+        cur = head
+        newCur = newHead.next
+        while cur:
+            if cur.random:
+                newCur.random = newNodes[cur.random.val]
+            cur = cur.next
+            newCur = newCur.next
+        
+        return newHead.next
+
+
 # second time, had a lot of trouble, unsure how i crafted that solution next time, i need sleep 
 
 """

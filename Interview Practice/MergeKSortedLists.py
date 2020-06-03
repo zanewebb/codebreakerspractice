@@ -1,3 +1,34 @@
+# third time?
+
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        if not lists:
+            return None
+        
+        
+        # heap that will store (node value, list index)
+        listnodes = {}
+        heap = []
+        for i, l in enumerate(lists):
+            listnodes[i] = l
+            if l:
+                heap.append((l.val, i))
+        
+        heapq.heapify(heap)
+        head = ListNode(-999)
+        cur = head
+        
+        while len(heap) > 0:
+            heapnode = heapq.heappop(heap)
+            cur.next = listnodes[heapnode[1]]
+            listnodes[heapnode[1]] = listnodes[heapnode[1]].next
+            if listnodes[heapnode[1]]:
+                heapq.heappush(heap, (listnodes[heapnode[1]].val, heapnode[1]))
+            cur = cur.next    
+        return head.next
+
+
+
 # remembered it mostly, forgot the key detail that the tuple must store the index of the list and not the list node itself
 import heapq
 class Solution:

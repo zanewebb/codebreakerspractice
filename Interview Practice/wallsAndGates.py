@@ -1,3 +1,31 @@
+# third time
+
+class Solution:
+    def wallsAndGates(self, rooms: List[List[int]]) -> None:
+        """
+        Do not return anything, modify rooms in-place instead.
+        """
+        gates = deque()
+        for r in range(len(rooms)):
+            for c in range(len(rooms[0])):
+                if rooms[r][c] == 0:
+                    gates.append([r,c])
+        
+        dirs = [[0,1],[0,-1],[1,0],[-1,0]]
+        
+        while len(gates) > 0:
+            g = gates.popleft()
+            for d in dirs:
+                r = g[0] + d[0]
+                c = g[1] + d[1]
+
+                if r >= 0 and c >= 0 and r < len(rooms) and c < len(rooms[0]) and rooms[r][c] > 214748364:
+                    rooms[r][c] = rooms[g[0]][g[1]] + 1
+                    gates.append([r,c])
+        
+
+
+
 # second time, got caught up on the criteria for what makes a valid lcoation
 #(only visit locations that havent been visited yet)
 # the logic being that if it was already visited, then the location in question

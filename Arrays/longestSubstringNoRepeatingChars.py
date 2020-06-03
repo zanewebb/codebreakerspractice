@@ -1,3 +1,24 @@
+# fifth time
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        window = set()
+        l, r, bestWindow = 0, 0, 0
+        
+        while r < len(s):
+            if s[r] not in window:
+                window.add(s[r])
+                bestWindow = max(bestWindow, len(window))
+            else:
+                while s[r] in window and l <= r:
+                    window.discard(s[l])
+                    l += 1
+                window.add(s[r])
+            
+            r += 1
+        
+        return bestWindow
+        
+
 class Solution:
 
     # fourth time
