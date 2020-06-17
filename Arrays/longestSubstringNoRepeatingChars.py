@@ -1,3 +1,19 @@
+# sixth  ime
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        seen = set()
+        maxlen = 0
+        l = 0
+        for i,c in enumerate(s):    
+            if c in seen:
+                while c in seen:
+                    seen.discard(s[l])
+                    l += 1
+                
+            seen.add(c)
+            maxlen = max(len(seen), maxlen)
+        return maxlen
+
 # fifth time
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:

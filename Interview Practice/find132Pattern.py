@@ -1,3 +1,31 @@
+# sixth time, almost had it, had to peek
+class Solution:
+    def find132pattern(self, nums: List[int]) -> bool:
+        if len(nums) < 3:
+            return False
+        
+        icandidates = [9999]*len(nums)
+        icandidates[0] = nums[0]
+        for i in range(1,len(nums)):
+            icandidates[i] = min(icandidates[i-1], nums[i])
+            
+        jcandidates = nums
+        kcandidates = []
+        
+        for i in range(len(nums)-1, -1, -1):
+            if jcandidates[i] > icandidates[i]:
+                
+                while len(kcandidates) > 0 and kcandidates[-1] <= icandidates[i]:
+                    kcandidates.pop()
+                
+                if len(kcandidates) > 0 and kcandidates[-1] < jcandidates[i]:
+                    return True
+                
+                kcandidates.append(jcandidates[i])
+                
+        return False
+
+
 # fifth time
 class Solution:
     def find132pattern(self, nums: List[int]) -> bool:

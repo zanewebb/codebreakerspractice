@@ -1,3 +1,47 @@
+# third time
+class Codec:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        # print( self.ser(root))
+        return self.ser(root)
+        
+        
+    def ser(self, node):
+        if not node:
+            return "None"
+        else:
+            return str(node.val) + "," + self.ser(node.left) + "," + self.ser(node.right)
+        
+        
+        
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        # print(self.des(data.split(",")))
+        return self.des(data.split(","))
+    
+    def des(self, data):
+        if len(data) == 0:
+            return None
+        else:
+            popped = data.pop(0)
+        if popped != "None":
+            node = TreeNode(int(popped))
+            node.left = self.des(data)
+            node.right = self.des(data)
+            return node
+        else:
+            return None
+
+
 # second time, holy crap im bad    
 # Definition for a binary tree node.
 # class TreeNode(object):

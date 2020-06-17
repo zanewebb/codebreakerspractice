@@ -1,5 +1,19 @@
 # removeDuplicates.py
 
+# sixth time
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return 1
+        
+        uniqueind = 0
+        for i in range(1, len(nums)):
+            if nums[uniqueind] != nums[i]:
+                uniqueind += 1
+                nums[uniqueind] = nums[i]
+        return uniqueind + 1
+        
+
 # fifth time
 def removeDuplicates(self, nums: List[int]) -> int:
         if len(nums) == 1:

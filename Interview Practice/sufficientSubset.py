@@ -1,3 +1,44 @@
+
+#not the cleanest but i got it without looking it up again
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sufficientSubset(self, root: TreeNode, limit: int) -> TreeNode:
+        self.trickle(root,limit)
+        
+        if not root.left and not root.right:
+            return None
+        
+        return root
+    
+    
+    def trickle(self, node, rollingsum):
+        rollingsum = rollingsum - node.val
+        # its a leaf
+        if not node.left and not node.right:
+            # valid or not valid
+            if rollingsum <= 0:
+                return node
+            else:
+                return None
+        if node.left:
+            node.left = self.trickle(node.left, rollingsum )
+        
+        if node.right:
+            node.right = self.trickle(node.right, rollingsum)
+        
+        if not node.left and not node.right:
+            return None
+        
+        return node
+
+
+
 # easier to comprehend solution, same idea
 # Definition for a binary tree node.
 # class TreeNode:

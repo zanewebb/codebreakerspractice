@@ -1,3 +1,25 @@
+# fourtht ime
+class Solution:
+    def __init__(self):
+        self.nums = None
+        self.ans = []
+    
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        self.nums = nums
+        self.swap(0)
+        return self.ans
+        
+    def swap(self, ind):
+        if ind == len(self.nums):
+            self.ans.append(self.nums[:])
+            return
+            
+        for i in range(ind, len(self.nums)):
+            self.nums[i], self.nums[ind]= self.nums[ind], self.nums[i]
+            self.swap(ind+1)
+            self.nums[i], self.nums[ind]= self.nums[ind], self.nums[i]
+
+
 # third time
 
 class Solution:

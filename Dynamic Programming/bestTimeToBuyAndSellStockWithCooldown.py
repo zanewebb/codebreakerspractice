@@ -1,3 +1,24 @@
+# Fourth time, still not quite getting it
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        didSell = -999999
+        canSell = -999999
+        reset = 0
+        
+        
+        for p in prices:
+            
+            preSell = didSell
+            
+            didSell = canSell + p
+            
+            canSell = max(canSell, reset-p)
+            
+            reset = max(preSell, reset)
+        
+        return max(reset, didSell)
+
+
 # third time? still super confusing
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:

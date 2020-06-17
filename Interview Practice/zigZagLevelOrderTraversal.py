@@ -1,3 +1,50 @@
+# third time
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+        movingright = True
+        
+        levelnodes = deque([root,None])
+        
+        levelvalues = deque()
+        
+        ans = []
+        
+        while len(levelnodes) > 0:
+            popped = levelnodes.popleft()
+            
+            if popped:
+                if popped.left:
+                    levelnodes.append(popped.left)
+                if popped.right:
+                    levelnodes.append(popped.right)
+                if movingright:
+                    levelvalues.append(popped.val)
+                else:
+                    levelvalues.appendleft(popped.val)
+                
+            else:
+                ans.append(levelvalues)
+                levelvalues = deque()
+                
+                if len(levelnodes) > 0:
+                    levelnodes.append(None)
+                    
+                movingright = not movingright
+        return ans
+                
+        
+        
+        
+
+
 # second time?
 # almost had it, forgot to preload the level delimiter / when to add new ones
 

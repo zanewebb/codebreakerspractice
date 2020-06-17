@@ -1,3 +1,25 @@
+# so close, shouldnt have tried setting the intial rolling prod to a value other than 1
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        if len(nums) <= 1:
+            return nums
+        
+        output = [0] * len(nums)
+        
+        
+        output[0] = 1
+        
+        for i in range(1,len(nums)):
+            output[i] = nums[i-1] * output[i-1]
+        
+        rollingprod = 1
+        for i in range(len(nums)-1, -1, -1):
+            output[i] *= rollingprod
+            rollingprod *= nums[i]
+        
+        return output
+
+
 # approved answer
 # the trick is to do just two passes, one where you populate each index with the rolling profuct of everything to the left
 # second pass keeps track of the rolling product from the right, multiply that into each output index and that should be it

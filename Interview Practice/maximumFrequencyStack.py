@@ -1,3 +1,39 @@
+# third time, got it
+class FreqStack:
+
+    def __init__(self):
+        # val: freq
+        self.freqs = {}
+        
+        # freq: [vals]
+        self.vals = collections.defaultdict(list)
+        self.maxfreq = 0
+
+    def push(self, x: int) -> None:
+        # get the existing frequency or provide 0
+        self.freqs[x] = self.freqs.get(x, 0) + 1
+        
+        self.maxfreq = max(self.maxfreq, self.freqs[x])
+        
+        # add it to its respectivee frequency stack
+        self.vals[self.freqs[x]].append(x)
+
+    def pop(self) -> int:
+        popped = self.vals[self.maxfreq].pop()
+        if len(self.vals[self.maxfreq]) == 0:
+            self.vals.pop(self.maxfreq)
+            
+        if len(self.vals.keys()) > 0:
+            self.maxfreq = max(self.vals.keys())
+        else:
+            self.maxfreq = 0
+            
+        self.freqs[popped] -= 1
+        
+        return popped
+
+
+
 # second time, tricky, had to carefully think through my issues i was having but got it
 class FreqStack:
 

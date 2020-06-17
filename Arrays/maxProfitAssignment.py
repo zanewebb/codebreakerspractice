@@ -1,5 +1,24 @@
 # maxProfitAssignment
 
+
+#sixth time
+class Solution:
+    def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
+        jobs = sorted(zip(difficulty, profit), key= lambda x: x[0])
+        i = 0
+        bestProf = 0
+        totalProf = 0
+        #print(jobs)
+        for w in sorted(worker):
+            #print(w,jobs[i][0])
+            while i < len(jobs) and jobs[i][0] <= w:
+                bestProf = max(jobs[i][1], bestProf)
+                i += 1
+            totalProf += bestProf
+               
+        return totalProf
+
+
 class Solution:
 
     # fifth time, always forget to sort the workers 
