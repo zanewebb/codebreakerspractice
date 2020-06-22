@@ -1,3 +1,50 @@
+# sixth time
+
+class Solution:
+    def __init__(self):
+        self.nodes = None
+        self.depths = None
+        self.ans = []
+    
+    def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
+        # assign depths with n
+        self.depths = [-1] * n
+        
+        # create adjacency list
+        self.nodes = collections.defaultdict(set)
+        for conn in connections:
+            self.nodes[conn[0]].add(conn[1])
+            self.nodes[conn[1]].add(conn[0])
+        
+        print(self.nodes)
+        # begin DFS
+        self.DFS(connections[0][0], -1, 0)
+        
+        print(self.depths)
+        # return ans list
+        return self.ans
+        
+        
+    def DFS(self, current, parent, depth):
+        # update the depth of the current
+        self.depths[current] = depth
+        print(self.depths)
+
+        # iterate over its children
+        for n in self.nodes[current]:
+            # if the child is the same as the parent, dont DFS
+            if n == parent:
+                continue
+            # dfs with the child node if the node has not been visited before
+            if self.depths[n] == -1:
+                self.DFS(n, current, depth + 1)
+            # update the depth of this node to the min of its current depth or the depth of the child
+            self.depths[current] = min(self.depths[current], self.depths[n])
+            
+        # if the depth for this node is still the same as the given depth, it is critical, add it to ans
+        if self.depths[current] == depth and parent != -1:
+            self.ans.append([current,parent])
+
 # fifth time, got it after some minor debugs
 class Solution:
     def __init__(self):
