@@ -1,3 +1,12 @@
+# fifth time
+
+class Solution:
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        wordCounts = collections.Counter(words)
+        wordCounts = sorted(list(wordCounts.keys()), key=lambda x: (-wordCounts[x], x))
+        return wordCounts[:k]
+        
+
 # fourth time, remembered it
 
 def topKFrequent(self, words: List[str], k: int) -> List[str]:

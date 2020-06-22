@@ -1,5 +1,36 @@
 # threeSum.py
 
+# seventh time
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        if len(nums) < 3:
+            return []
+        
+        nums = sorted(nums)
+        
+        l, r = 1, 2
+        ans = {}
+        
+        for i in range(len(nums)-2):
+            l = i + 1
+            r = len(nums)-1
+            while l < r:
+                tempsum = nums[i] + nums[l] + nums[r]
+                
+                if tempsum == 0:
+                    ans[str(nums[i]) + str(nums[l]) + str(nums[r])] = [nums[i] , nums[l] , nums[r]]
+                    while l < r and nums[l+1] == nums[l]:
+                        l += 1
+                    l += 1
+                    while l < r and nums[r-1] == nums[r]:
+                        r -= 1
+                    r -= 1
+                elif tempsum < 0:
+                    l += 1
+                elif tempsum > 0:
+                    r -= 1
+        return ans.values()
+
 # sixth time 
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:

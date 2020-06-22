@@ -1,5 +1,22 @@
 #maxSubArray
 
+# sixth time, hazy but got it immediately, first try
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        l = r = 0
+        cursum, bestsum = 0, -9999999999
+        while r < len(nums):
+            cursum += nums[r]
+            
+            bestsum = max(cursum, bestsum)
+            
+            if cursum < 0:
+                cursum = 0
+            
+            r += 1
+            
+        return bestsum
+
 # fifth time, forgot what the super elegant solution was 
 def maxSubArray(self, nums: List[int]) -> int:
         if len(nums) == 1:

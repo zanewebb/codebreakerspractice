@@ -1,4 +1,44 @@
 
+# third time
+
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        
+        # iterate over and record which oranges are currently rotting
+        rotting = []
+        freshCount = 0
+        for r in range(len(grid)):
+            for c in range(len(grid[0])):
+                if grid[r][c] == 2:
+                    rotting.append([r,c])
+                elif grid[r][c] == 1:
+                    freshCount += 1
+        
+        # loop until we have no longer rotted any new oranges
+        directions = [[0,1],[0,-1],[1,0],[-1,0]]
+        minutes = 0
+        while True:
+            #print(rotting)
+            newRotting = []
+            for ro in rotting:
+                # each loop attempt to rot in all directions
+                for d in directions:
+                    # if rotting was successful then record that location as a new rotting orange
+                    r = ro[0] + d[0]
+                    c = ro[1] + d[1]
+                    if r >= 0 and c >= 0 and r < len(grid) and c < len(grid[0]) and grid[r][c] == 1:
+                        grid[r][c] = 2
+                        freshCount -= 1
+                        newRotting.append([r,c])
+
+            rotting = newRotting
+            if len(rotting) == 0 and freshCount == 0:
+                return minutes
+            elif len(rotting) == 0 and freshCount != 0:
+                return -1
+            else:
+                minutes += 1
+
 # second time
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:

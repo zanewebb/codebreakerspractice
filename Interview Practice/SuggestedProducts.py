@@ -1,3 +1,79 @@
+# fifth time
+class Node:
+    def __init__(self):
+        self.suggestions = []
+        self.children = {}
+
+class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        root = Node()
+        for p in sorted(products):
+            cur = root
+            for c in p:
+                if c not in cur.children:
+                    cur.children[c] = Node()
+                
+                cur = cur.children[c]
+                if len(cur.suggestions) < 3:
+                    cur.suggestions.append(p)
+        
+        # mimic keystrokes
+        cur = root
+        ans = []
+        for c in searchWord:
+            if cur and c in cur.children:
+                cur = cur.children[c]
+                ans.append(cur.suggestions)
+            else:
+                cur = None
+                ans.append([])
+        
+        return ans
+
+
+# fourth time
+
+class Trie:
+    def __init__(self):
+        self.suggestions = []
+        self.children = {}
+
+class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        
+        # create the suggestion tree
+        root = Trie()
+        cur = root
+        
+        for p in sorted(products):
+            cur = root
+            for c in p:
+                # if the trie node isnt already there, make it
+                if c not in cur.children:
+                    cur.children[c] = Trie()
+                
+                # traverse the tree    
+                cur = cur.children[c]
+                
+                # add the suggestions
+                if len(cur.suggestions) < 3:
+                    cur.suggestions.append(p)
+                
+        
+        # mimick the keystrokes
+        ans = []
+        cur = root
+        for ks in searchWord:
+            if cur and ks in cur.children:
+                cur = cur.children[ks]
+                ans.append(cur.suggestions)
+            else:
+                cur = None
+                ans.append([])
+        
+        return ans
+
+
 # third time
 class Trie:
     def __init__(self):

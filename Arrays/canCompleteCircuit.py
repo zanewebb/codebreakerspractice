@@ -1,5 +1,30 @@
 # canCompleteCircuit.py
 
+
+# sixth time
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        if sum(gas) < sum(cost):
+            return -1
+        
+        stations = zip(gas,cost)
+        
+        bestStation = None
+        curgas = 0
+        for i,s in enumerate(stations):
+            curgas = curgas + s[0] - s[1]
+            #print(i,curgas, bestStation) 
+            if curgas < 0:
+                curgas = 0
+                bestStation = None
+            elif bestStation is None:
+                bestStation = i
+            #print(i,curgas, bestStation) 
+        
+        return bestStation if bestStation is not None else -1
+        
+
+
 class Solution:
     # fifth time
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:

@@ -1,3 +1,40 @@
+# sixth  ime
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        seen = set()
+        maxlen = 0
+        l = 0
+        for i,c in enumerate(s):    
+            if c in seen:
+                while c in seen:
+                    seen.discard(s[l])
+                    l += 1
+                
+            seen.add(c)
+            maxlen = max(len(seen), maxlen)
+        return maxlen
+
+# fifth time
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        window = set()
+        l, r, bestWindow = 0, 0, 0
+        
+        while r < len(s):
+            if s[r] not in window:
+                window.add(s[r])
+                bestWindow = max(bestWindow, len(window))
+            else:
+                while s[r] in window and l <= r:
+                    window.discard(s[l])
+                    l += 1
+                window.add(s[r])
+            
+            r += 1
+        
+        return bestWindow
+        
+
 class Solution:
 
     # fourth time

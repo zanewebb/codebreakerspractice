@@ -1,3 +1,33 @@
+# eight time???
+class Solution:
+    def removeKdigits(self, num: str, k: int) -> str:
+        stack = []
+        
+        for n in num:
+            while len(stack) > 0 and int(n) < stack[-1] and k > 0:
+                stack.pop()
+                k -= 1
+            stack.append(int(n))
+        
+        while len(stack) > 0 and k > 0:
+            stack.pop()
+            k -= 1
+        
+        print(stack)
+        
+        ans = ""
+        foundDigit = False
+        while len(stack) > 0:
+            popped = str(stack.pop(0))
+            if popped in "123456789" or foundDigit:
+                ans += popped 
+                foundDigit = True
+        
+        if not ans:
+            return "0"
+        
+        return ans
+
 
 # seventh time
 

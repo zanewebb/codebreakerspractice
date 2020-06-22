@@ -1,3 +1,21 @@
+# fourth time
+
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        l, r = 0, len(height)-1
+        
+        bestArea = -9999999
+        while l < r:
+            bestArea = max(( r - l  )* min(height[l], height[r]), bestArea)
+            
+            if height[l] < height[r]:
+                l += 1
+            else:
+                r -= 1
+        
+        return bestArea
+
+
 # third time?
 
 def maxArea(self, height: List[int]) -> int:        

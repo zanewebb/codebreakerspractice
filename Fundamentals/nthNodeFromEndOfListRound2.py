@@ -1,3 +1,36 @@
+
+# 6th time, edge cases always trip me up for a bit
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        
+        dummy = ListNode(-1, head)
+        fast = slow = dummy
+        
+        # iterate n spots out
+        dist = 1
+        while dist < n:
+            fast = fast.next
+            dist += 1
+        
+        while fast.next.next:
+            fast = fast.next
+            slow = slow.next
+        
+        if slow.next == head:
+            head = head.next
+        else:
+            slow.next = slow.next.next
+    
+        return head
+
+
+
 class Solution:
 
   

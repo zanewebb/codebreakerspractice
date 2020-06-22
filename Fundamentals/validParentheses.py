@@ -1,4 +1,16 @@
 
+# 7th time
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        while "()" in s or "[]" in s or "{}" in s:
+            s = s.replace("{}", "").replace("[]","").replace("()","")
+        if len(s) != 0:
+            return False
+        return True
+
+
+
 # slick but less efficient solution
 def isValid(self, s: str) -> bool:
     while "()" in s or "{}" in s or '[]' in s:
