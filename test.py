@@ -1,6 +1,6 @@
 import collections
 
 words = ["test", "another", "other", "test", "test", "blamo"]
-counter = collections.Counter(words)
+#counter = collections.Counter(words)
 
-print(counter)
+print(words[1:2])
