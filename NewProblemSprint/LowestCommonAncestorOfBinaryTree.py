@@ -1,3 +1,55 @@
+# second time, still slow as hell
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def __init__(self):
+        self.keypaths = []
+    
+    
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        # do DFS
+        self.DFS(root, [], p, q)
+        
+        # print(self.keypaths)
+        
+        # determine LCA
+        pl, ql = self.keypaths[0], self.keypaths[1]
+        seen = set()
+        
+        while len(pl) > 0 or len(ql) > 0:
+            if len(pl) > 0:
+                popped = pl.pop()
+                if popped in seen:
+                    # print(popped)
+                    return popped
+                seen.add(popped)
+            if len(ql) > 0:
+                popped = ql.pop()
+                if popped in seen:
+                    # print(popped)
+                    return popped
+                seen.add(popped)
+        
+        
+    def DFS(self, node, path, p, q):
+        if node:
+            path.append(node)
+            if node == p or node == q:
+                self.keypaths.append(path[:]) 
+        
+            if node.left:
+                self.DFS(node.left, path[:], p, q)
+            if node.right:
+                self.DFS(node.right, path[:], p, q)
+        
+        
+        
+
 
 # first time but 5% 5% LOL
 

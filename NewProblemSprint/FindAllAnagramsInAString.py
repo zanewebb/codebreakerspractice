@@ -1,3 +1,31 @@
+# second time
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        windowcounts = [0] * 26
+        targetcounts = [0] * 26
+        ans = []
+        
+        for i, c in enumerate(p):
+            targetcounts[ord(c) - 97] += 1
+        print("target")
+        print(targetcounts)
+        l = 0
+        for i, c in enumerate(s):
+            #print(windowcounts)
+                
+            windowcounts[ord(c) - 97] += 1
+                
+            while sum(targetcounts) < sum(windowcounts) and l < len(s):
+                windowcounts[ord(s[l]) - 97] -= 1
+                l += 1
+                
+            if targetcounts == windowcounts:
+                ans.append(l)        
+        
+        return ans
+        
+        
+
 
 # first try, for some reason got it in my head that a set would work for anagrams pff
 

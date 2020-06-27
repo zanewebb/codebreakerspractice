@@ -1,3 +1,26 @@
+# was really close couldnt quite re-implement it without help
+class Solution:
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        # dict will track num%k : index
+        seen = {0:-1}
+        rollingsum = 0
+        
+        for i in range(len(nums)):
+            rollingsum += nums[i]
+            
+            # if rollingsum > 0 and k == 0:
+            #     return False
+            
+            modded = rollingsum % k if k != 0 else rollingsum 
+            # print("modded is",modded)
+            if modded not in seen:
+                seen[modded] = i
+            elif i - seen[modded] > 1 and modded in seen:
+                return True
+            # print(seen)
+        return False
+
+
 #efficient solution, found on forums
 # similar to another problem ive done, dont remember the name
 class Solution:

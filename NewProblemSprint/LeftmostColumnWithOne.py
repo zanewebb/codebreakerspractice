@@ -1,3 +1,24 @@
+
+# got it, second time
+class Solution:
+    def leftMostColumnWithOne(self, binaryMatrix: 'BinaryMatrix') -> int:
+        dims = binaryMatrix.dimensions()
+        r, c = 0, dims[1] - 1
+        leftmost = 999999999
+        while r < dims[0] and c >= 0:
+            if binaryMatrix.get(r, c) == 1:
+                leftmost = c
+                c -= 1
+            elif binaryMatrix.get(r, c) == 0:
+                r += 1
+        
+        if leftmost == 999999999:
+            return -1
+        else:
+            return leftmost
+
+
+
 # had to look it up. brute force O(n) solution has a restriction on it
 
 # """

@@ -1,3 +1,74 @@
+# sloppy but i solved it
+class Solution:
+    def divide(self, dividend: int, divisor: int) -> int:
+        negative = False if (dividend > 0 and divisor > 0) or (dividend < 0 and divisor < 0) else True
+        
+        dividend = dividend if dividend > 0 else -dividend
+        divisor = divisor if divisor > 0 else -divisor
+        
+        if divisor == dividend:
+            return 1 if not negative else -1
+        
+        cur = 0
+        count = 1
+        ans = 0
+        
+        doubles = []
+        counts = []
+        
+        cur = divisor
+        i = 0
+        while cur < dividend:
+            # add the new values
+            doubles.append(cur)
+            counts.append(count)
+
+            # double things
+            cur += cur
+            count += count
+
+            # move the iterator
+            i += 1
+
+        # subtract the doubled up to amount
+        i -= 1
+        if i >= 0:
+            dividend -= doubles[i]
+            ans += counts[i]
+        else:
+            return ans if not negative else -ans
+        
+        
+        # now we continue to chip away the remainders with our already
+        # calculated doubles and counts
+        while i >= 0 and dividend > 0:
+            # find the next biggest double that fits in our remainder
+            while i >= 0 and doubles[i] > dividend:
+                i -= 1
+            if i >= 0:
+                ans += counts[i]
+                dividend -= doubles[i]
+            # print("i",i, "dividend",dividend, "ans",ans)
+            
+        if ans > 2147483647 and not negative:
+            return 2147483647
+        return ans if not negative else -ans
+            
+            
+            
+        
+        
+        '''
+        [3, 6, 12]
+        [1, 2, 4 ]
+        
+        10
+        3
+        '''
+        
+
+
+
 class Solution:
     def divide(self, dividend: int, divisor: int) -> int:
 

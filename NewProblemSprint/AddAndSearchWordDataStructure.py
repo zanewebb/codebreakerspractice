@@ -1,3 +1,71 @@
+
+# second time, didnt remember the concise solution, slow to execute this solution again
+class Node:
+    def __init__(self):
+        self.children = {}
+        self.val = None
+        
+class WordDictionary:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.root = Node()
+        
+
+    def addWord(self, word: str) -> None:
+        """
+        Adds a word into the data structure.
+        """
+        cur = self.root
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = Node()
+            cur = cur.children[c]
+        
+        cur.val = word
+        
+
+    def search(self, word: str) -> bool:
+        """
+        Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter.
+        """
+        print(word)
+        return self.rsearch(word, self.root, len(word))
+        
+        
+    def rsearch(self, word, node, wordlen):
+        found = False
+        for i, c in enumerate(word):
+            # print(c)
+            if c == ".":
+                # print("kicking off recursive calls")
+                for k in node.children.keys():
+                    found = found or self.rsearch(word[i+1:], node.children[k], wordlen)
+                return found
+            elif c not in node.children:
+                return False
+            else:
+                node = node.children[c]
+        
+        # print("exited loop at node with val", node.val)
+        if node.val and len(node.val) == wordlen:
+            return True
+        
+        return False
+    
+
+        
+        
+
+
+# Your WordDictionary object will be instantiated and called as such:
+# obj = WordDictionary()
+# obj.addWord(word)
+# param_2 = obj.search(word)
+
+
 # found this solution in forums, much faster, concise
 class WordDictionary(object):
     def __init__(self):

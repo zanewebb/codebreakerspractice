@@ -1,3 +1,41 @@
+# got it from memory noice
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def verticalOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+        
+        # dict of x coord : [nodes]
+        seen = collections.defaultdict(list)
+        
+        # nodes will be tracked in tuples of (col, row, node)
+        levelnodes = deque([(0, 0, root)])
+        
+        while len(levelnodes) > 0:
+            col, row, node = levelnodes.popleft()
+            
+            # add to dict
+            seen[col].append(node.val)
+            
+            if node.left:
+                levelnodes.append((col-1, row+1, node.left))
+            if node.right:
+                levelnodes.append((col+1, row+1, node.right))
+            
+        ans = []
+        for k in sorted(seen.keys()):
+            ans.append(seen[k])
+        
+        # print(ans)
+        return ans
+
+
+
 #given solution, very close
 # Definition for a binary tree node.
 # class TreeNode:
