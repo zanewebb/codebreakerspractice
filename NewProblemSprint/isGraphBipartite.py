@@ -1,4 +1,46 @@
 
+# second time, couldnt get it again, 76/78 cases
+# gotta do it the stupid stack way
+
+class Solution:
+    def __init__(self):
+        self.nodes = {}
+        self.graph = None
+        
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        nodes = {}
+        self.graph = graph
+        
+        res = True
+        for g in graph:
+            if g:
+                res = self.DFS(g, -1)
+                break
+        print(self.nodes)
+        return res
+        
+        
+    def DFS(self, node, color):
+        # print("checking node", node)
+        # if not node:
+        #     return False
+        
+        good = True
+        for n in node:
+            if n in self.nodes:
+                if self.nodes[n] != color:
+                    return False
+            else:
+                # print("assigning color", color, "to node", n)
+                self.nodes[n] = color
+                good = good and self.DFS(self.graph[n], color * -1)
+        
+        # print(self.nodes, good)
+        return good
+    
+        
+
+
 # had no idea how to do this
 
 class Solution:

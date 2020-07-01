@@ -1,3 +1,29 @@
+
+class Solution:
+    def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
+        callstack = []
+        
+        funcs = [0] * n
+        now = 0
+        
+        for l in logs:
+            parsedlog = l.split(":")
+            func, event, newtime = int(parsedlog[0]), parsedlog[1], int(parsedlog[2])
+            
+            if event == "end":
+                funcs[func] += newtime - now + 1
+                callstack.pop()
+                now = newtime + 1
+            else:
+                if len(callstack) > 0:
+                    funcs[callstack[-1]] += newtime - now 
+                callstack.append(func)
+                now = newtime
+            
+            # print(funcs, now, callstack)
+        
+        return funcs
+
 # Found this solution, pretty similar except you keep track of the "current time"
 # and each time you read a log you add the time between the last log and the current log
 # to the function on the top of the call stack

@@ -1,4 +1,35 @@
 
+# third time? EZ PZ
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def __init__(self):
+        self.nodes = {}
+        
+        
+    def rightSideView(self, root: TreeNode) -> List[int]:
+        if root:
+            self.DFS(root, 0)
+        return self.nodes.values()
+    
+    def DFS(self, node, depth):
+        if depth not in self.nodes:
+            self.nodes[depth] = node.val
+        
+        if node.right:
+            self.DFS(node.right, depth + 1)
+        if node.left:
+            self.DFS(node.left, depth + 1)
+        
+        
+        
+        
+
+
 # does work, need to do right side traversal
 # Definition for a binary tree node.
 # class TreeNode:

@@ -1,4 +1,54 @@
 
+# didnt remember the better solution, dam
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        people = collections.defaultdict(list)
+        
+        '''
+        The datastructure should be
+        {
+            John: [
+                {"johnsmith@mail.com", "john00@mail.com", "john_newyork@mail.com"},
+                {"johnnybravo@mail.com"}
+            ],
+            Mary: [
+                {"mary@mail.com"}
+            ]
+        }
+        '''
+        
+        # look through our accounts
+        for a in accounts:
+            name = a[0]
+            # if we have this person on file potentially
+            if name in people:
+                added = False
+                # check each email set
+                for emailset in people[name]:
+                    # verify that this is the same person we're referring to
+                    for e in a[1:]:
+                        if e in emailset:
+                            # union the emails from this account
+                            # and the known emails for this person
+                            people[name].remove(emailset)
+                            emailset = emailset.union(set(a[1:]))
+                            people[name].append(emailset)
+                            added = True
+                            
+                if not added:
+                    people[name].append(set(a[1:]))    
+            else:
+                people[name].append(set(a[1:]))
+        
+        
+        ans = []
+        for p in people:
+            for es in people[p]:
+                ans.append([p] + sorted(list(es)))
+        
+        return ans
+
+
 # weird dfs solution, think of it as a graph
 class Solution(object):
     def accountsMerge(self, accounts):

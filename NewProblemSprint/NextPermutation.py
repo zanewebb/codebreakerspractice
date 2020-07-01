@@ -1,3 +1,30 @@
+# holy moly im dumb, completely fell apart on execution again
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        
+        if len(nums) == 1:
+            return
+        
+        i = len(nums)-2
+        while i >= 0 and nums[i] >= nums[i+1]:
+            i -= 1
+        
+        print(i)
+        
+        if i >= 0:
+            j = i+1
+            while j < len(nums) and nums[j] > nums[i]:
+                j += 1
+            j -= 1
+            nums[i], nums[j] = nums[j], nums[i]
+            print(nums)
+        
+        nums[i+1:] = reversed(nums[i+1:])
+
+
 # second time, choppy execution 
 class Solution:
     def nextPermutation(self, nums: List[int]) -> None:

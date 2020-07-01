@@ -1,3 +1,22 @@
+# third time
+
+class Solution:
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        seen = {0:-1}
+        rollingsum = 0
+        
+        for i, n in enumerate(nums):
+            rollingsum += n
+            key = rollingsum if k == 0 else rollingsum % k
+            if key in seen:
+                if i - seen[key] > 1:
+                    return True
+            else:
+                seen[key] = i
+        
+        return False
+
+
 # was really close couldnt quite re-implement it without help
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:

@@ -1,4 +1,23 @@
 
+# second time
+class Solution:
+    def missingElement(self, nums: List[int], k: int) -> int:
+        count = nums[0]
+        i = 0
+        while i < len(nums) and k > 0:
+            if nums[i] > count + 1:
+                while count+1 < nums[i] and k > 0:
+                    count += 1
+                    k -= 1
+            if k > 0:
+                count = nums[i]
+                
+            i += 1
+        
+        return count + k
+            
+
+
 # abnormally slow execution, test cases must be huge. 
 class Solution:
     def missingElement(self, nums: List[int], k: int) -> int:

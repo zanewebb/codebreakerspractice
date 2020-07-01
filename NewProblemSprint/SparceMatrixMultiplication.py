@@ -1,3 +1,27 @@
+# second time, need to use whiles
+class Solution:
+    def multiply(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
+        ans = []
+        
+        for Arow in A:
+            currow = []
+            Bcolind = 0
+            while Bcolind < len(B[0]):
+                add = 0
+                Acolind = 0
+                while Acolind < len(A[0]):
+                    for Brow in B:
+                        # print("multiplying ", Arow[Acolind], Brow[Bcolind])
+                        add += Arow[Acolind] * Brow[Bcolind]
+                        Acolind += 1
+                currow.append(add)
+                Bcolind += 1
+            ans.append(currow)
+        
+        return ans
+            
+
+
 
 # kljnkjnawdknawdjn
 class Solution(object):
