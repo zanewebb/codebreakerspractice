@@ -1,3 +1,28 @@
+
+# third time
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        targetcounts = [0] * 26
+        for c in p:
+            targetcounts[ord(c)-97] += 1
+            
+        windowcounts = [0] * 26
+        
+        l = 0
+        ans = []
+        for i, c in enumerate(s):
+            windowcounts[ord(c) - 97] += 1
+            
+            while sum(windowcounts) > sum(targetcounts):
+                windowcounts[ord(s[l]) - 97] -= 1
+                l += 1
+                
+            if targetcounts == windowcounts:
+                ans.append(l)
+        
+        return ans
+        
+
 # second time
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:

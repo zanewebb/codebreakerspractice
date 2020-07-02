@@ -1,3 +1,51 @@
+# third time, had to look at solution, forgot implemntation of search
+class WordDictionary:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.values = collections.defaultdict(set)
+        
+
+    def addWord(self, word: str) -> None:
+        """
+        Adds a word into the data structure.
+        """
+        self.values[len(word)].add(word)
+
+    def search(self, word: str) -> bool:
+        """
+        Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter.
+        """
+        if not word:
+            return False
+        elif "." not in word:
+            return True if word in self.values[len(word)] else False
+        else:
+            for w in self.values[len(word)]:
+                matches = True
+                for i,c in enumerate(word):
+                    
+                    if c != w[i] and c != ".":
+                        # if this char isnt a wildcard and it doesnt match that same
+                        # index of the word we have in our values that we're investigating
+                        # skip this word
+                        matches = False
+                        break
+                if matches:
+                    return True
+            return False
+        
+        
+
+
+# Your WordDictionary object will be instantiated and called as such:
+# obj = WordDictionary()
+# obj.addWord(word)
+# param_2 = obj.search(word)
+
+
 
 # second time, didnt remember the concise solution, slow to execute this solution again
 class Node:

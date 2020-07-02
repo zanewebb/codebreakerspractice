@@ -1,3 +1,42 @@
+# much smarter way to do it
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def __init__(self):
+        self.ans = None
+        self.p = None
+        self.q = None
+        
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        self.p = p
+        self.q = q
+        self.search(root)
+        return self.ans
+        
+    def search(self, node):
+        if not node:
+            return False
+        
+        
+        foundleft = self.search(node.left)
+        foundright = self.search(node.right)
+        foundself = node == self.p or node == self.q  
+        
+        if (foundleft and foundright) or (foundself and foundright) or (foundself and foundleft):
+            self.ans = node
+        
+        return foundleft or foundright or foundself
+        
+        
+    
+
+
 # second time, still slow as hell
 # Definition for a binary tree node.
 # class TreeNode:

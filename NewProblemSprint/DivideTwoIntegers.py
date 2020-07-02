@@ -1,3 +1,46 @@
+# i hate this problem, doesnt work
+class Solution:
+    def divide(self, dividend: int, divisor: int) -> int:
+        negative = False
+        
+        if dividend < 0 and divisor > 0:
+            negative = True
+            dividend = -dividend
+        elif dividend > 0 and divisor < 0:
+            negative = True
+            divisor = -divisor
+        elif dividend < 0 and divisor < 0:
+            divisor = -divisor
+            dividend = -dividend
+            
+        counts = []
+        doubles = []
+        ans = 0
+        count = divisor
+        doubled = 1
+        while count <= dividend:
+            if count > 2147483647:
+                return 2147483647
+            counts.append(count)
+            doubles.append(doubled)
+            count += count
+            doubled += doubled
+    
+        if len(counts) > 0:
+            dividend -= counts[-1]
+            ans += doubles[-1]
+        
+        i = len(doubles) - 1
+        while i >= 0:
+            if counts[i] < dividend:  
+                dividend -= counts[i]
+                ans += doubles[i]
+            i -= 1
+        
+        return ans if not negative else -ans
+
+
+
 # sloppy but i solved it
 class Solution:
     def divide(self, dividend: int, divisor: int) -> int:

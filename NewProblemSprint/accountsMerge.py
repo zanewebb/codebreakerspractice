@@ -1,4 +1,43 @@
 
+# still having a hard time remembering this solution
+
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        emailtoname = {}
+        emailtoemail = collections.defaultdict(set)
+        
+        for a in accounts:
+            name = a[0]
+            accts = a[1:]
+            
+            for e in accts:
+                emailtoname[e] = name
+                emailtoemail[accts[0]].add(e)
+                emailtoemail[e].add(accts[0])
+                
+        seen = set()
+        ans = []
+        for e in emailtoemail:
+            if e not in seen:
+                stack = [e]
+                acct = []
+                seen.add(e)
+                # stack.append[list(emailtoemail[e])]
+                
+                while len(stack) > 0:
+                    email = stack.pop()
+                    acct.append(email)
+                    
+                    for linkedemail in emailtoemail[email]:
+                        if linkedemail not in seen:
+                            seen.add(linkedemail)
+                            stack.append(linkedemail)
+                ans.append([emailtoname[e]] + sorted(acct))
+        
+        return ans
+        
+
+
 # didnt remember the better solution, dam
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:

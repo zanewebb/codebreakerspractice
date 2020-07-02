@@ -1,3 +1,36 @@
+# finally got it without looking 
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        taskcounts = [0] * 26
+        
+        for t in tasks:
+            taskcounts[ord(t) - 65] += 1
+            
+        maxcount = max(taskcounts)
+        taskcounts = sorted(taskcounts)
+        # [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3]
+        taskcounts.pop()
+        
+        idletime = (maxcount-1) * n
+        print(idletime)
+        # [A, -, -, A, -, -, A]
+        
+        # [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3]
+        for t in taskcounts :
+            idletime -= min(maxcount-1, t)
+            # print(idletime)
+        
+        idletime = max(idletime, 0)
+        print(len(tasks) + idletime)
+        return len(tasks) + idletime
+        
+        
+        # [A, -, -, A, -, -, A]
+        # [     ]
+        
+
+
+
 # forgot part of it, had to look at the ans
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:

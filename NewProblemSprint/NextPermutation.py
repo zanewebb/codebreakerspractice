@@ -1,3 +1,40 @@
+# tricky to catch all the edge cases but finally got it
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        
+        if len(nums) < 2:
+            return
+        
+        i = len(nums)-2
+        while i >= 0 and nums[i] >= nums[i+1]:
+            i -= 1
+        
+        print(i)
+        
+        # if we arent just reversing the whole thing
+        if i >= 0 :
+            j = i + 1 
+            while j < len(nums) and nums[j] > nums[i]:
+                # 3 2 5 4 1
+                #   i     
+                
+                # 1 2 5 4 3 
+                
+                j += 1
+            
+            print(j)
+            
+            # if j < len(nums):
+            nums[i], nums[j-1] = nums[j-1], nums[i]
+            # else:
+            #     nums[i], nums[-1] = nums[-1], nums[i]
+            
+        nums[i+1:] = reversed(nums[i+1:])
+        
+
 # holy moly im dumb, completely fell apart on execution again
 class Solution:
     def nextPermutation(self, nums: List[int]) -> None:

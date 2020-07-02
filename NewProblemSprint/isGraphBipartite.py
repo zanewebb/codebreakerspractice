@@ -1,3 +1,35 @@
+# third time, still couldnt get it
+class Solution:
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        colorednodes = {}
+        color = -1
+        
+        # iterate over the graph nodes, just the indexes since
+        # the index represent's the node's value
+        for n in range(len(graph)):
+            # if the node isnt in the dict of colored nodes then begin DFS
+            if n not in colorednodes:
+                # the DFS works by adding new nodes to a stack and coloring them 
+                # until there are no nodes left in the stck
+                stack = [n]
+                colorednodes[n] = color
+                
+                while len(stack) > 0:
+                    node = stack.pop()
+                    # iterate over the connections to this node (found in the given graph)
+                    for nodeconnection in graph[node]:
+                        # if we havent seen it, add it to ou DFS stack
+                        if nodeconnection not in colorednodes:
+                            stack.append(nodeconnection)
+                            colorednodes[nodeconnection] = colorednodes[node] * -1
+                        # if we've seen it and it matches the color of the node we're on, return false
+                        elif colorednodes[nodeconnection] == colorednodes[node]:
+                            return False
+        return True
+            
+            
+        
+
 
 # second time, couldnt get it again, 76/78 cases
 # gotta do it the stupid stack way

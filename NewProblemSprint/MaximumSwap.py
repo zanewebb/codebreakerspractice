@@ -1,3 +1,40 @@
+# third time
+
+class Solution:
+    def maximumSwap(self, num: int) -> int:
+        
+        nums = str(num)
+        nums = [int(c) for c in nums]
+        print(nums)
+        
+        # find problem index
+        problemind = -1
+        for i in range(len(nums)):
+            if nums[i] != max(nums[i:]) and problemind == -1:
+                problemind = i
+                break
+        
+        if problemind >= 0:
+            # find rightmost max index
+            maxind = -1
+            maxval = max(nums[problemind+1:])
+            for i in range(len(nums)-1, problemind, -1):
+                if nums[i] == maxval:
+                    maxind = i
+                    break
+
+            nums[maxind], nums[problemind] = nums[problemind], nums[maxind]
+
+        numstrs = [str(n) for n in nums]
+        nums = "".join(numstrs)
+        nums = int(nums)
+        
+        return nums
+        
+        
+
+
+
 # got it, second time
 
 class Solution:
