@@ -1,6 +1,33 @@
 
 class Solution:
     def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
+        funcs = [0] * n
+        callstack = []
+        now = 0
+        for l in logs:
+            splitlog = l.split(":")
+            func, action, time = int(splitlog[0]), splitlog[1], int(splitlog[2])
+        
+            if action == "start":
+                if len(callstack) > 0:
+                    funcs[callstack[-1]] += time - now 
+                callstack.append(func)
+                now = time
+                
+            elif action == "end":
+                funcs[func] += time - now + 1
+                callstack.pop()
+                now = time +1
+                
+        
+        return funcs
+        
+        
+        
+
+
+class Solution:
+    def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
         callstack = []
         
         funcs = [0] * n

@@ -1,3 +1,47 @@
+# still hate this problem. Everything that sucks about it is just with the stupid edge cases
+class Solution:
+    def divide(self, dividend: int, divisor: int) -> int:
+        negatives = 0
+        if dividend < 0:
+            dividend = -dividend
+            negatives += 1
+        if divisor < 0:
+            negatives += 1
+            divisor = -divisor
+        
+        
+        doublevals = []
+        doublecounts = []
+        
+        dub = divisor
+        count = 1
+        while dub <= dividend:
+            if dub >= 2147483648 and negatives != 1 and divisor < 2147483648 :
+                return 2147483647
+            
+            doublevals.append(dub)
+            doublecounts.append(count)
+            dub += dub
+            count += count
+            
+        
+        
+        i = len(doublecounts) - 1
+        ans = 0
+        while i >= 0 and dividend > 0:
+            while i >= 0 and doublevals[i] > dividend:
+                i -= 1
+            
+            if i >= 0 and dividend - doublevals[i] >= 0: 
+                dividend -= doublevals[i]
+                ans += doublecounts[i]
+            
+        
+        return ans if negatives != 1 else -ans
+        
+        
+
+
 # i hate this problem, doesnt work
 class Solution:
     def divide(self, dividend: int, divisor: int) -> int:

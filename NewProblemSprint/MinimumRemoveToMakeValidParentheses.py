@@ -1,3 +1,39 @@
+# rough but i got it
+class Solution:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        closerproblems = set()
+        opencount = 0
+        closecount = 0
+        
+        for i,c in enumerate(s):
+            if c is "(":
+                opencount += 1
+            elif c is ")":
+                closecount += 1
+                if closecount > opencount:
+                    closerproblems.add(i)
+                    closecount -= 1
+        
+        # construct answer string
+        ans = ""
+        opencount = closecount
+        print(opencount,closecount)
+        for i, c in enumerate(s):
+            if i in closerproblems:
+                closerproblems.discard(i)
+                continue
+            elif c == "(" and opencount > 0:
+                ans += "("
+                opencount -= 1
+            elif c not in "(":
+                ans += c
+        
+        return ans
+        
+        
+        
+
+
 # close to having a solution, couldnt do it sadly ...
 
 class Solution:

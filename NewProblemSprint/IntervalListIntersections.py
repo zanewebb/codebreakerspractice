@@ -1,3 +1,29 @@
+# worse than my first time, works though 
+class Solution:
+    def intervalIntersection(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
+        ans = deque()
+        
+        while A and B:
+            # pop while a's end is less than b's start
+            while A and B and A[-1][1] < B[-1][0]:
+                B.pop()
+            
+            # pop while a's end is less than b's start
+            while A and B and B[-1][1] < A[-1][0]:
+                A.pop()
+                
+            if A and B and A[-1][1] >= B[-1][0]:
+                print(A[-1], B[-1])
+                ans.appendleft([max(A[-1][0], B[-1][0]), min(A[-1][1], B[-1][1])])
+                
+                if A[-1][0] < B[-1][0]:
+                    B.pop()
+                else:
+                    A.pop()
+            
+        return ans
+
+
 # first try wow, good speed and eff too
 
 class Solution:

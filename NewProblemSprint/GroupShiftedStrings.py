@@ -1,3 +1,25 @@
+# didnt look it up, still somewhat confusing to me 
+class Solution:
+    def groupStrings(self, strings: List[str]) -> List[List[str]]:
+        strs = collections.defaultdict(list)
+        
+        for s in strings:
+            # if len(s) == 1:
+            #     strs[(-999999)].append(s)
+            key = ()
+            for i in range(len(s)-1):
+                shift = ord(s[i+1]) - ord(s[i]) - 97
+                key += (shift % 26,)
+            
+            strs[key].append(s)
+            
+        return strs.values()
+                
+            
+        
+
+
+
 
 # had to look it up
 class Solution:
