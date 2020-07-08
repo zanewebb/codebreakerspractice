@@ -1,5 +1,37 @@
 # threeSum.py
 
+# eighth time
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        ans = set()
+        nums = sorted(nums)
+        # use three pointer approach i l and r
+        
+        for i in range(0, len(nums)-2):
+            l = i + 1
+            r = len(nums) - 1
+            
+            while l < r:
+                tempsum = nums[i] + nums[r] + nums[l]
+                
+                if tempsum > 0:
+                    r -= 1
+                elif tempsum < 0:
+                    l += 1
+                else:
+                    ans.add((nums[i], nums[l], nums[r]))
+                    while l < r and nums[l] == nums[l+1] :
+                        l += 1
+                    l += 1
+                    while l < r and nums[r] == nums[r-1]:
+                        r -=1
+                    r -= 1
+        return [list(a) for a in ans]
+        
+        
+        
+        
+
 # seventh time
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:

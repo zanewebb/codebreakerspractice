@@ -1,4 +1,33 @@
 
+# fourth time
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def __init__(self):
+        self.rightside = {}
+        
+    def rightSideView(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        self.DFS(root, 0)
+        return self.rightside.values()
+        
+    
+    def DFS(self, node, depth):
+        if node:
+            if depth not in self.rightside:
+                self.rightside[depth] = node.val
+            
+            self.DFS(node.right, depth+1)
+            self.DFS(node.left, depth+1)
+        
+
+
+
 # third time? EZ PZ
 # Definition for a binary tree node.
 # class TreeNode:

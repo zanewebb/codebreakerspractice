@@ -1,3 +1,25 @@
+# fourth time
+class Solution:
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        # seen will track %k's of the rolling sum and the index at which it was at
+        seen = {0:-1}
+        
+        for i, s in enumerate(itertools.accumulate(nums)):
+            modded = s % k if k != 0 else s
+            
+            if modded in seen:
+                # it's important that these are separated to cover edge cases
+                if i - seen[modded] > 1:
+                    return True
+            else:
+                seen[modded] = i
+            
+            
+        return False
+                
+        
+        
+
 # third time
 
 class Solution:

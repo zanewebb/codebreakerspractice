@@ -1,3 +1,48 @@
+# easy but it seems like this solution is inefficient
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class BSTIterator:
+
+    def __init__(self, root: TreeNode):
+        self.root = root
+        self.values = []
+        self.DFS(root)
+        self.values = sorted(self.values)
+        self.ind = 0
+        
+        
+    def next(self) -> int:
+        """
+        @return the next smallest number
+        """
+        ret = self.values[self.ind]
+        self.ind += 1
+        return ret
+        
+
+    def hasNext(self) -> bool:
+        """
+        @return whether we have a next smallest number
+        """
+        return self.ind < len(self.values)
+    
+    def DFS(self, node):
+        if node:
+            self.values.append(node.val)
+            self.DFS(node.right)
+            self.DFS(node.left)
+
+
+# Your BSTIterator object will be instantiated and called as such:
+# obj = BSTIterator(root)
+# param_1 = obj.next()
+# param_2 = obj.hasNext()   
+
+
 # second time, good
 class BSTIterator:
 

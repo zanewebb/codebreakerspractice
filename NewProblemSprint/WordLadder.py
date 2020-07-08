@@ -1,4 +1,62 @@
 
+# ouch, need to study this one
+class Solution:
+    def __init__(self):
+        self.wordcombos = collections.defaultdict(list)
+        self.endWord = None
+    
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        wordset = set(wordList)
+        if endWord not in wordset or not beginWord or not endWord or not wordList:
+            return 0
+        
+        self.endWord = endWord
+        
+        for w in wordList:
+            # go through each char in each word and replace it with a wildcard
+            for i in range(len(w)):
+                self.wordcombos[w[:i] + "." + w[i+1:]].append(w)
+        
+        print(self.wordcombos)
+        
+        
+        queue = deque([(beginWord, 1)])
+        # seen could also be a set
+        seen = {beginWord:1}
+        ans = 0
+        
+        while queue:
+            word, steps = queue.popleft()
+
+            # using the word at hand, try all permuations of this word with wildcards
+            for i in range(len(word)):
+                testword = word[:i] + "." + word[i+1:]
+                
+                # for each permutation, get its list of associated words
+                for w in self.wordcombos[testword]:
+                    # if we found our target then we return the ans (BFS means this should be the shortest path i think)
+                    if w == self.endWord:
+                        return steps + 1
+                    
+                    # if this word is not the answer, then we add it to our queue of steps to take, because this word
+                    # might be part of the path to our answer word
+                    if w not in seen:
+                        seen[w] = steps + 1
+                        queue.append((w, steps + 1))
+
+                # wipe out this permutation list after checking each word in here, they are already part of
+                # our queue and going to be considered, we don't want to revisit or waste time
+                # checking if we've visited those words
+                self.wordcombos[word] = []
+                    
+        return ans
+        
+        
+        
+        
+        
+
+
 # I had kinda the right idea, went about it wrong   
 
 from collections import defaultdict

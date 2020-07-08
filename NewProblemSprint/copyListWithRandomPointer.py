@@ -1,3 +1,93 @@
+# fifth time
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
+
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        # this will have modified node value : node with that value
+        nodes = {}
+        
+        newhead = Node(-1)
+        newcur = newhead
+        cur = head
+        
+        
+        index = 0
+        while cur:
+            newcur.next = Node(cur.val)
+            cur.val = str(cur.val) + "-" + str(index)
+            nodes[cur.val] = newcur.next
+            index += 1
+            newcur = newcur.next
+            cur = cur.next
+        
+            
+        newcur = newhead.next
+        cur = head
+        while cur:
+            newcur.random = nodes[cur.random.val] if cur.random else None
+            newcur = newcur.next
+            cur = cur.next
+        
+        return newhead.next
+        
+        
+        
+        
+        
+
+# fourth time
+
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
+
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        nodes = {}
+        
+        i = 0
+        cur = head
+        newhead = Node(-1)
+        newcur = newhead
+        
+        while cur:
+            newcur.next = Node(cur.val)
+            cur.val = str(cur.val) + str(i)
+            nodes[cur.val] = newcur.next
+            
+            cur = cur.next
+            newcur = newcur.next
+            i += 1
+        
+        # print(nodes)
+        
+        newcur = newhead.next
+        cur = head
+        i = 0
+        while cur:
+            if cur.random:
+                newcur.random = nodes[str(cur.random.val)] 
+            cur = cur.next
+            newcur = newcur.next
+            i += 1
+        
+        return newhead.next
+        
+        
+
+
 # third time
 
 class Solution:

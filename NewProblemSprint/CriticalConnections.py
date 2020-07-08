@@ -1,3 +1,81 @@
+# eighth time
+class Solution:
+    def __init__(self):
+        self.depths = None
+        self.nodes = collections.defaultdict(list)
+        self.ans = []
+    
+    def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
+        self.depths = [-1] * n
+        
+        for conn in connections:
+            self.nodes[conn[0]].append(conn[1])
+            self.nodes[conn[1]].append(conn[0])
+        
+        self.DFS(-1, connections[0][0], 0)
+        
+        return self.ans
+        
+    def DFS(self, parent, current, depth):
+        self.depths[current] = depth
+        
+        # look at each connection on this node
+        for n in self.nodes[current]:
+            if n == parent:
+                continue # dont go right back to the node we just visited
+            
+            # if we havent visited this node then continue looking
+            if self.depths[n] < 0:
+                self.DFS(current, n, depth + 1)
+                self.depths[current] = min(self.depths[current], self.depths[n])
+            
+            # otherwise we've already seen it so just update the depth on this node
+            else:
+                self.depths[current] = min(self.depths[current], self.depths[n])
+        
+        if self.depths[current] == depth and parent != -1:
+            self.ans.append([parent,current])
+        
+        
+        
+
+# seventh time
+class Solution:
+    def __init__(self):
+        self.nodes = collections.defaultdict(list)
+        self.depths = None
+        self.ans = []
+    
+    def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
+        self.depths = [-1] * n
+        
+        for c in connections:
+            self.nodes[c[0]].append(c[1])
+            self.nodes[c[1]].append(c[0])
+        
+        self.DFS(connections[0][0], -1, 0)
+        
+        return self.ans
+        
+    def DFS(self, current, parent, depth):
+        self.depths[current] = depth
+        
+        for n in self.nodes[current]:
+            if n == parent:
+                continue
+            if self.depths[n] < 0:
+                self.DFS(n, current, depth + 1)
+                self.depths[current] = min(self.depths[current], self.depths[n])
+            else:
+                self.depths[current] = min(self.depths[current], self.depths[n])
+        
+        if self.depths[current] == depth and parent != -1:
+            self.ans.append([current,parent])
+        
+        
+        
+
+
 # sixth time
 
 class Solution:

@@ -1,3 +1,94 @@
+# seventh try, got it, forgot about keeping track of the keys in the nodes at first though
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.cap = capacity
+        self.size = 0
+        self.nodes = {}
+        self.queue = None
+        self.head = None
+        self.tail = None
+
+    def get(self, key: int) -> int:
+        if key in self.nodes:
+            # fetch value in that node
+            ret = self.nodes[key].val
+            
+            # remove it from the queue
+            self.remove(self.nodes[key])
+            
+            # re add it to the front
+            newNode = Node(key, ret)
+            self.addToFront(newNode)
+            self.nodes[key] = newNode
+            
+            return ret
+            
+        else:
+            return -1
+
+        
+    def put(self, key: int, value: int) -> None:
+        if key in self.nodes:
+            self.remove(self.nodes[key])
+            newNode = Node(key, value)
+            self.nodes[key] = newNode
+            self.addToFront(newNode)
+        else:
+            newNode = Node(key, value)
+            self.nodes[key] = newNode
+            self.addToFront(newNode)
+            self.size += 1
+            
+            # remove the least used if we exceed capacity
+            if self.size > self.cap:
+                delkey = self.remove(self.tail)
+                self.nodes.pop(delkey, None)
+                self.size -= 1
+        
+    def remove(self, node):
+        # case where node is the only node in the list
+        if node.prev is None and node.next is None:
+            self.head = self.tail = None
+            
+        # case where we remove the tail and there are other elements
+        elif node.next is None:
+            node.prev.next = None
+            self.tail = node.prev
+        # case where wer remove the head and there are other elements
+        elif node.prev is None:
+            node.next.prev = None
+            self.head = node.next
+        # standard case, removing node somewhere in the middle of the queue
+        elif node.prev is not None and node.next is not None:
+            node.next.prev = node.prev
+            node.prev.next = node.next        
+            
+        return node.key
+        
+    def addToFront(self, node):
+        if self.head is not None:
+            node.next = self.head
+            self.head.prev = node
+            self.head = node
+        else:
+            self.head = node
+            self.tail = node
+        
+        
+        
+class Node:
+    def __init__(self, key=None, val=None):
+        self.val = val
+        self.key = key
+        self.next = None
+        self.prev = None
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
+
 
 # sixth try, got it after waaaay too long debugging, single class seems to reduce bugs in my setup, there are less edge cases than i think for the removal of a node
 

@@ -1,4 +1,22 @@
 
+# third time
+class Solution:
+
+    def __init__(self, nums: List[int]):
+        self.nums = nums
+
+    def pick(self, target: int) -> int:
+        count = 0
+        ind = -1
+        for i, n in enumerate(self.nums):
+            if n == target:
+                count += 1
+                ind = i if random.randint(1, count) == 1 else ind
+        
+        return ind
+
+
+
 # second
 class Solution:
 

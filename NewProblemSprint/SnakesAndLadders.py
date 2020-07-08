@@ -1,3 +1,70 @@
+# got it!
+class Solution:
+    def snakesAndLadders(self, board: List[List[int]]) -> int:
+        seen = {1 : 0} # we've seen space 1, we know it takes 0 steps to get there
+        opportunities = deque([1]) # we have yet to finish exploring from space 1, the start
+        
+        while opportunities:
+            currentspace = opportunities.popleft()
+            
+            for space in range(currentspace + 1, currentspace + 7): #covers 6 total spaces
+                
+                # need to do some trickery to figure out what this space NUMBER equates to in row and col
+                row = (space-1) // len(board)
+                col = (space-1) % len(board)
+                boardval = board[~row][col if row % 2 == 0 else ~col]
+                
+                # if this is a snake or ladder, travel to the space indicated
+                if boardval > 0:
+                    space = boardval
+                
+                # if we've reached the end of the board, return the answer
+                if space == len(board) ** 2:
+                    return seen[currentspace] + 1
+                
+                # if we havent seen this space, set the step count to it
+                if space not in seen:
+                    seen[space] = seen[currentspace] + 1
+                    # also be sure to tag it as an opportunity to investigate
+                    opportunities.append(space)
+                
+        # we must have not reached the end if we investigated all opportunities
+        return -1
+        
+        
+
+
+# this is really hard, had to copy a lot
+class Solution:
+    def snakesAndLadders(self, board: List[List[int]]) -> int:
+        possiblepaths = deque([1])
+        # we know that initially we start at space 1
+        seen = {1:0}
+        
+        while possiblepaths:
+            curspace = possiblepaths.popleft()
+            for i in range(curspace + 1, curspace + 7):
+                h = (i - 1) // len(board) # vertically it will be a multiple of n
+                w = (i - 1) % len(board) # offset horizontally
+                
+                nextspace = board[~h][w if h % 2 == 0 else ~w] 
+                
+                # if this spot is a snake or ladder, move there
+                if nextspace > 0:
+                    i = nextspace
+                    
+                if i == len(board)**2:
+                    return seen[curspace] + 1
+                
+                if i not in seen:
+                    seen[i] = seen[curspace] + 1
+                    possiblepaths.append(i)
+                    
+        return -1
+                
+                
+
+
 # lee215's ans
 def snakesAndLadders(self, board):
     #  height and width of the board

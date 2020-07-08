@@ -1,3 +1,27 @@
+# much cleaner
+class Solution:
+    def multiply(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
+        ans = []
+        
+        for arow in range(len(A)):
+            ansrow = []
+            for bcol in range(len(B[0])):
+                acol = 0
+                brow = 0
+
+                tempsum = 0
+                # A col and B row are equivalent so only need one condition
+                while acol < len(A[0]):
+                    tempsum += A[arow][acol] * B[brow][bcol] 
+                    acol += 1
+                    brow += 1
+                
+                ansrow.append(tempsum)
+            ans.append(ansrow)
+        return ans
+                
+
+
 # second time, need to use whiles
 class Solution:
     def multiply(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:

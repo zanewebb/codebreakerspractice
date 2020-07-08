@@ -1,3 +1,43 @@
+# closer, still didnt get it
+class Solution:
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        nodecolors = {}
+        color = 1
+        
+        # iterate over the nodes
+        for i in range(len(graph)):
+            # once we encounter a node that hasn't been visited, begin coloring
+            if i not in nodecolors:
+                # color this one right away
+                nodecolors[i] = color
+                # add it to the stack. This stack will be used to 
+                # investigate further edges
+                # this stack stores "nodes whose edges must be investigated"
+                stack = [i]
+                
+                # dont stop hopping graph nodes until we've exhausted all conections 
+                while stack:
+                    # look at the next node
+                    node = stack.pop()
+                    # consider each of its connected nodes
+                    for nodeconn in graph[node]:
+                        # if we havent colored it already, no problem, lets color it
+                        # and make sure we consider other nodes that are connected to it
+                        # by adding it to our list of nodes to check out
+                        if nodeconn not in nodecolors:
+                            stack.append(nodeconn)
+                            nodecolors[nodeconn] = nodecolors[node] * -1
+                        
+                        # if we HAVE already seen it, check if it matches the color of the
+                        # node that we're currently checking the edges of. If it does, then return false
+                        elif nodecolors[node] == nodecolors[nodeconn]:
+                            return False
+                        
+        return True
+        
+        
+        
+
 # stillll shaky somehow, cant do it
 class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:

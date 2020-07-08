@@ -1,3 +1,40 @@
+# so close, still screwed it up
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        emailtoname = {}
+        graph = collections.defaultdict(set)
+        
+        for a in accounts:
+            for e in sorted(a[1:]):
+                emailtoname[e] = a[0]
+                graph[a[1]].add(e)
+                graph[e].add(a[1])
+        
+        # print(graph)
+        
+        ans = []
+        seen = set()
+        
+        for k in graph:
+            if k not in seen:
+                seen.add(k)
+                accts = []
+                queue = deque([k])
+                while queue:
+                    a = queue.pop()
+                    accts.append(a)
+                    
+                    for e in graph[a]:
+                        if e not in seen:
+                            seen.add(e)
+                            queue.append(e)
+                
+                ans.append([emailtoname[k]]+sorted(accts))    
+        
+        return ans
+        
+        
+
 
 # still having a hard time remembering this solution
 

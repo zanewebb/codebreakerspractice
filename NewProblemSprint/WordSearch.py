@@ -1,3 +1,53 @@
+# better? 
+class Solution:
+    def __init__(self):
+        self.board = None
+        self.word = None
+        self.dirs = [(-1,0),(1,0),(0,-1),(0,1)]
+        
+    
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        self.board = board
+        self.word = word
+        
+        if not word or not board:
+            return False
+        
+        # Iterate over board
+        for r in range(len(board)):
+            for c in range(len(board[0])):
+                # if we encounter an instance of the starting letter
+                # begin searching
+                if board[r][c] == word[0] and self.search(r,c,0):
+                    return True
+                
+                
+        # if the searches never returned true, return false
+        return False
+                
+    def search(self, r, c, i):
+        if i == len(self.word) - 1:
+            return True
+        
+        temp = self.board[r][c]
+        self.board[r][c] = ""
+        
+        found = False
+        for dr, dc in self.dirs:
+            nr = r + dr
+            nc = c + dc
+            if nr >= 0 and nc >= 0 and nr < len(self.board) and nc < len(self.board[0]) and self.board[nr][nc] == self.word[i+1]:
+                found = found or self.search(nr, nc, i + 1)
+        
+        self.board[r][c] = temp
+        
+        return found
+        
+        
+        
+        
+
+
 # slow but got it first time
 
 class Solution:
