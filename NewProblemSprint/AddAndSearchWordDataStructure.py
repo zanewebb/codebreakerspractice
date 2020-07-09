@@ -1,3 +1,43 @@
+# got it
+class WordDictionary:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.values = collections.defaultdict(set)
+        
+        
+
+    def addWord(self, word: str) -> None:
+        """
+        Adds a word into the data structure.
+        """
+        self.values[len(word)].add(word)
+        
+
+    def search(self, word: str) -> bool:
+        """
+        Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter.
+        """
+        for w in self.values[len(word)]:
+            for i, c in enumerate(w):
+                if word[i] != c and word[i] != ".":
+                    break
+                elif i == len(word)-1:
+                    return True
+        
+        return False
+            
+        
+
+
+# Your WordDictionary object will be instantiated and called as such:
+# obj = WordDictionary()
+# obj.addWord(word)
+# param_2 = obj.search(word)
+
+
 # had to look at the third case for search again
 # have to look at each character on each word in the set for that key :/
 class WordDictionary:
