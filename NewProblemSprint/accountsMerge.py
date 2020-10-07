@@ -1,3 +1,47 @@
+#I keep forgetting the deque part of the solution. Need to use a set and queue to BFS the graph
+#  
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        emailtoname = {}
+        emailtoemails = collections.defaultdict(set)
+        
+        
+        for a in accounts:
+            name = a[0]
+            emails = a[1:]
+            
+            for e in emails:
+                emailtoname[e] = name
+                emailtoemails[emails[0]].add(e)
+                emailtoemails[e].add(emails[0])
+                
+        print(emailtoemails)
+        
+        ans = []
+        seen = set()
+        
+        for k in emailtoemails:
+            if k not in seen:
+                seen.add(k)
+                accts = []
+                queue = deque([k])
+                while queue:
+                    a = queue.pop()
+                    accts.append(a)
+                    
+                    for e in emailtoemails[a]:
+                        if e not in seen:
+                            seen.add(e)
+                            queue.append(e)
+                
+                ans.append([emailtoname[k]]+sorted(accts)) 
+        
+        return ans
+        
+        
+        
+
+
 # so close, still screwed it up
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:

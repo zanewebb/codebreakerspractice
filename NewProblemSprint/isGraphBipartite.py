@@ -1,3 +1,32 @@
+# finally got it
+class Solution:
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        colorednodes = {}
+        color = 1
+        
+        for i in range(len(graph)):
+            if i not in colorednodes:
+                stack = [i]
+                colorednodes[i] = color
+                
+                while stack:
+                    node = stack.pop()
+                    for n in graph[node]:
+                        if n not in colorednodes:
+                            colorednodes[n] = colorednodes[node] * -1
+                            stack.append(n)
+                        elif n in colorednodes and colorednodes[n] == colorednodes[node]:
+                            return False
+                            
+                    color = color * -1
+        
+        return True
+        
+        
+        
+        
+
+
 # closer, still didnt get it
 class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:
